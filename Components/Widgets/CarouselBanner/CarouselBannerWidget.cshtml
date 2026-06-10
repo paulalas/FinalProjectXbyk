@@ -6,9 +6,8 @@
 @model FinalProject.Widgets.CarouselBannerWidgetViewModel
 
 @{
-    
     var carouselId = $"carousel_{Guid.NewGuid().ToString("N").Substring(0, 8)}";
-    var carouselItems = Model?.CarouselItems ?? new List<CarouselBanner>();
+    var carouselItems = Model?.CarouselItems ?? new List<CarouselBannerItemViewModel>();
 }
 
 <style>
@@ -96,6 +95,8 @@
         border-radius: 50%;
         width: 50px;
         height: 50px;
+        top: 50%;
+        transform: translateY(-50%);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -150,17 +151,17 @@
         <div class="carousel-inner">
             @for (int i = 0; i < carouselItems.Count; i++)
             {
-                var item = carouselItems[i];
+                var itemVm = carouselItems[i];
+                var item = itemVm.Item;
                 var backgroundImage = item.BackgroundPicture?.FirstOrDefault()?.Thumbnail?.Url ?? "";
-                var buttonLink = item.ButtonLink?.FirstOrDefault()?.WebPageGuid ?? Guid.Empty;
-                var buttonUrl = buttonLink != Guid.Empty ? $"/{buttonLink}" : "#";
+                var buttonUrl = Url.Content(itemVm.ButtonUrl ?? "");
 
-                <div class="carousel-item @(i == 0 ? "active" : "")" 
+                <div class="carousel-item @(i == 0 ? "active" : "")"
                      style="background-image: url('@backgroundImage'); background-size: cover; background-position: center; min-height: 500px;">
-                    
+
                     <!-- Text Content Overlay -->
                     <div class="carousel-banner-overlay">
-                        
+
                         <!-- Title - Center Top -->
                         @if (!string.IsNullOrEmpty(item.Title))
                         {
@@ -178,7 +179,7 @@
                         }
 
                         <!-- Button - Center Bottom -->
-                        @if (!string.IsNullOrEmpty(item.ButtonText) && buttonUrl != "#")
+                        @if (!string.IsNullOrEmpty(item.ButtonText) && !string.IsNullOrEmpty(buttonUrl))
                         {
                             <a href="@buttonUrl" class="carousel-banner-button">
                                 @item.ButtonText
