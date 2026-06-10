@@ -5,7 +5,7 @@ using FinalProject;
     identifier: "FinalProject.AboutUsPageTemplate",
     name: "About Us Page Template",
     //propertiesType: typeof(FinalProject.AboutUsPageTemplateProperties),
-    customViewName: "~/Features/AboutUs/AboutUsPageTemplate.cshtml",
+    customViewName: "~/PageTemplates/AboutUs/AboutUsPageTemplate.cshtml",
     ContentTypeNames = new[] { AboutUs.CONTENT_TYPE_NAME },
     Description = "About Us page template with 4 editable areas for hero, main content, features, and call to action sections",
     IconClass = "xp-layout-80-20")]

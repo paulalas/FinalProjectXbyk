@@ -4,7 +4,7 @@ using FinalProject;
 [assembly: RegisterPageTemplate(
     identifier: "FinalProject.ArticlesListPageTemplate",
     name: "Articles List Page Template",
-    customViewName: "~/Features/ArticlesList/ArticlesListPageTemplate.cshtml",
+    customViewName: "~/PageTemplates/ArticlesList/ArticlesListPageTemplate.cshtml",
     ContentTypeNames = new[] { ArticlesList.CONTENT_TYPE_NAME },
     Description = "Articles list page template with single editable area for articles content",
     IconClass = "xp-layout-full")]

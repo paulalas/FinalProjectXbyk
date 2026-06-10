@@ -22,40 +22,40 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/work/Work/xbyk/FinalProject/Features/AboutUs/AboutUsPageTemplate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcQWJvdXRVc1xBYm91dFVzUGFnZVRlbXBsYXRlLmNzaHRtbA==
+[C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/CarouselBanner/CarouselBannerWidget.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXENhcm91c2VsQmFubmVyXENhcm91c2VsQmFubmVyV2lkZ2V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/work/Work/xbyk/FinalProject/Features/ArticlesDetail/ArticlesDetailPageTemplate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcQXJ0aWNsZXNEZXRhaWxcQXJ0aWNsZXNEZXRhaWxQYWdlVGVtcGxhdGUuY3NodG1s
+[C:/Users/work/Work/xbyk/FinalProject/PageTemplates/AboutUs/AboutUsPageTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZVRlbXBsYXRlc1xBYm91dFVzXEFib3V0VXNQYWdlVGVtcGxhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/work/Work/xbyk/FinalProject/Features/ArticlesList/ArticlesListPageTemplate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcQXJ0aWNsZXNMaXN0XEFydGljbGVzTGlzdFBhZ2VUZW1wbGF0ZS5jc2h0bWw=
+[C:/Users/work/Work/xbyk/FinalProject/PageTemplates/ArticlesDetail/ArticlesDetailPageTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZVRlbXBsYXRlc1xBcnRpY2xlc0RldGFpbFxBcnRpY2xlc0RldGFpbFBhZ2VUZW1wbGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/work/Work/xbyk/FinalProject/Features/ContactUs/ContactUsPageTemplate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcQ29udGFjdFVzXENvbnRhY3RVc1BhZ2VUZW1wbGF0ZS5jc2h0bWw=
+[C:/Users/work/Work/xbyk/FinalProject/PageTemplates/ArticlesList/ArticlesListPageTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZVRlbXBsYXRlc1xBcnRpY2xlc0xpc3RcQXJ0aWNsZXNMaXN0UGFnZVRlbXBsYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/work/Work/xbyk/FinalProject/Features/Home/HomePageTemplate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcSG9tZVxIb21lUGFnZVRlbXBsYXRlLmNzaHRtbA==
+[C:/Users/work/Work/xbyk/FinalProject/PageTemplates/ContactUs/ContactUsPageTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZVRlbXBsYXRlc1xDb250YWN0VXNcQ29udGFjdFVzUGFnZVRlbXBsYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/work/Work/xbyk/FinalProject/Features/ServicesDetail/ServicesDetailPageTemplate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcU2VydmljZXNEZXRhaWxcU2VydmljZXNEZXRhaWxQYWdlVGVtcGxhdGUuY3NodG1s
+[C:/Users/work/Work/xbyk/FinalProject/PageTemplates/Home/HomePageTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZVRlbXBsYXRlc1xIb21lXEhvbWVQYWdlVGVtcGxhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/work/Work/xbyk/FinalProject/Features/ServicesList/ServicesListPageTemplate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcU2VydmljZXNMaXN0XFNlcnZpY2VzTGlzdFBhZ2VUZW1wbGF0ZS5jc2h0bWw=
+[C:/Users/work/Work/xbyk/FinalProject/PageTemplates/ServicesDetail/ServicesDetailPageTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZVRlbXBsYXRlc1xTZXJ2aWNlc0RldGFpbFxTZXJ2aWNlc0RldGFpbFBhZ2VUZW1wbGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/work/Work/xbyk/FinalProject/Features/Widgets/CarouselBanner/CarouselBannerWidget.cshtml]
-build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcV2lkZ2V0c1xDYXJvdXNlbEJhbm5lclxDYXJvdXNlbEJhbm5lcldpZGdldC5jc2h0bWw=
+[C:/Users/work/Work/xbyk/FinalProject/PageTemplates/ServicesList/ServicesListPageTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZVRlbXBsYXRlc1xTZXJ2aWNlc0xpc3RcU2VydmljZXNMaXN0UGFnZVRlbXBsYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/work/Work/xbyk/FinalProject/Features/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[C:/Users/work/Work/xbyk/FinalProject/PageTemplates/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZVRlbXBsYXRlc1xfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/work/Work/xbyk/FinalProject/Views/Shared/_Layout.cshtml]

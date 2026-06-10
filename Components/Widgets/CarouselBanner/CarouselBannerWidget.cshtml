@@ -1,0 +1,211 @@
+@using CMS.Websites
+@using FinalProject
+@using FinalProject.Widgets
+@using Kentico.PageBuilder.Web.Mvc
+
+@model FinalProject.Widgets.CarouselBannerWidgetViewModel
+
+@{
+    
+    var carouselId = $"carousel_{Guid.NewGuid().ToString("N").Substring(0, 8)}";
+    var carouselItems = Model?.CarouselItems ?? new List<CarouselBanner>();
+}
+
+<style>
+    .carousel-banner-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .carousel-banner-item {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel-banner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        text-align: center;
+        z-index: 1;
+    }
+
+    .carousel-banner-title {
+        font-size: 48px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .carousel-banner-content {
+        font-size: 18px;
+        color: white;
+        margin-bottom: 30px;
+        max-width: 600px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .carousel-banner-button {
+        padding: 12px 30px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .carousel-banner-button:hover {
+        background-color: #0056b3;
+        color: white;
+        text-decoration: none;
+    }
+
+    .carousel-fade .carousel-item {
+        opacity: 0;
+        transition-property: opacity;
+        transition-duration: 0.6s;
+    }
+
+    .carousel-fade .carousel-item.active {
+        opacity: 1;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        opacity: 1;
+    }
+
+    @@media (max-width: 768px) {
+        .carousel-banner-item {
+            height: 300px;
+        }
+
+        .carousel-banner-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .carousel-banner-content {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .carousel-banner-button {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+@if (carouselItems.Any())
+{
+    <div id="@carouselId" class="carousel carousel-banner-container slide carousel-fade" data-bs-ride="carousel">
+        <!-- Carousel Indicators -->
+        @if (carouselItems.Count > 1)
+        {
+            <div class="carousel-indicators">
+                @for (int i = 0; i < carouselItems.Count; i++)
+                {
+                    <button type="button" data-bs-target="#@carouselId" data-bs-slide-to="@i" 
+                            class="@(i == 0 ? "active" : "")" 
+                            aria-label="Slide @(i + 1)"></button>
+                }
+            </div>
+        }
+
+        <!-- Carousel Items -->
+        <div class="carousel-inner">
+            @for (int i = 0; i < carouselItems.Count; i++)
+            {
+                var item = carouselItems[i];
+                var backgroundImage = item.BackgroundPicture?.FirstOrDefault()?.Thumbnail?.Url ?? "";
+                var buttonLink = item.ButtonLink?.FirstOrDefault()?.WebPageGuid ?? Guid.Empty;
+                var buttonUrl = buttonLink != Guid.Empty ? $"/{buttonLink}" : "#";
+
+                <div class="carousel-item @(i == 0 ? "active" : "")" 
+                     style="background-image: url('@backgroundImage'); background-size: cover; background-position: center; min-height: 500px;">
+                    
+                    <!-- Text Content Overlay -->
+                    <div class="carousel-banner-overlay">
+                        
+                        <!-- Title - Center Top -->
+                        @if (!string.IsNullOrEmpty(item.Title))
+                        {
+                            <h2 class="carousel-banner-title">
+                                @item.Title
+                            </h2>
+                        }
+
+                        <!-- Content - Center Mid -->
+                        @if (!string.IsNullOrEmpty(item.Content))
+                        {
+                            <div class="carousel-banner-content">
+                                @Html.Raw(item.Content)
+                            </div>
+                        }
+
+                        <!-- Button - Center Bottom -->
+                        @if (!string.IsNullOrEmpty(item.ButtonText) && buttonUrl != "#")
+                        {
+                            <a href="@buttonUrl" class="carousel-banner-button">
+                                @item.ButtonText
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Carousel Controls -->
+        @if (carouselItems.Count > 1)
+        {
+            <button class="carousel-control-prev" type="button" data-bs-target="#@carouselId" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#@carouselId" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        No carousel items configured for this widget.
+    </div>
+}

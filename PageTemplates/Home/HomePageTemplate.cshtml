@@ -1,3 +1,5 @@
+@using Kentico.PageBuilder.Web.Mvc
+
 @model TemplateViewModel
 
 @{
@@ -19,4 +21,17 @@
         </div>
     </section>
 
+    <!-- Features Section - Editable Area 3 -->
+    <section class="features-section py-5 bg-light">
+        <div class="container">
+            <editable-area area-identifier="features" />
+        </div>
+    </section>
+
+    <!-- Call to Action - Editable Area 4 -->
+    <section class="cta-section py-5">
+        <div class="container">
+            <editable-area area-identifier="callToAction" />
+        </div>
+    </section>
 </div>
