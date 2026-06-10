@@ -26,6 +26,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcQWJvdXRVc1xBYm91dFVzUGFnZVRlbXBsYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/work/Work/xbyk/FinalProject/Features/ArticlesDetail/ArticlesDetailPageTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcQXJ0aWNsZXNEZXRhaWxcQXJ0aWNsZXNEZXRhaWxQYWdlVGVtcGxhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/work/Work/xbyk/FinalProject/Features/ArticlesList/ArticlesListPageTemplate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcQXJ0aWNsZXNMaXN0XEFydGljbGVzTGlzdFBhZ2VUZW1wbGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,8 +42,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcSG9tZVxIb21lUGFnZVRlbXBsYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/work/Work/xbyk/FinalProject/Features/ServicesDetail/ServicesDetailPageTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcU2VydmljZXNEZXRhaWxcU2VydmljZXNEZXRhaWxQYWdlVGVtcGxhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/work/Work/xbyk/FinalProject/Features/ServicesList/ServicesListPageTemplate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcU2VydmljZXNMaXN0XFNlcnZpY2VzTGlzdFBhZ2VUZW1wbGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/work/Work/xbyk/FinalProject/Features/Widgets/CarouselBanner/CarouselBannerWidget.cshtml]
+build_metadata.AdditionalFiles.TargetPath = RmVhdHVyZXNcV2lkZ2V0c1xDYXJvdXNlbEJhbm5lclxDYXJvdXNlbEJhbm5lcldpZGdldC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/work/Work/xbyk/FinalProject/Features/_ViewImports.cshtml]

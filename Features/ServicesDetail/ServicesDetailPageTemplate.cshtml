@@ -1,0 +1,70 @@
+
+@using Kentico.PageBuilder.Web.Mvc
+@using Kentico.Content.Web.Mvc
+@using Kentico.Content.Web.Mvc.PageBuilder
+@using Kentico.Web.Mvc
+@using CMS.ContentEngine
+@using CMS.Websites
+
+@model TemplateViewModel
+@inject IWebPageDataContextRetriever webPageDataContextRetriever
+@inject IContentRetriever contentRetriever
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pageDataContext = webPageDataContextRetriever.Retrieve();
+    var webPageItemGuid = pageDataContext.WebPage.WebPageItemGUID;
+        IEnumerable<ServicesDetail> servicesDetail = await contentRetriever.RetrievePages<ServicesDetail>(
+        new RetrievePagesParameters
+        {
+            LinkedItemsMaxLevel = 1  // Load linked Assets for CourseThumbnail
+        },
+        query => query
+            .Where(w => w.WhereEquals(nameof(WebPageFields.WebPageItemGUID), webPageItemGuid))
+            .TopN(1),
+        new RetrievalCacheSettings($"Course_{webPageItemGuid}", TimeSpan.FromMinutes(5)),
+        Context.RequestAborted
+    );
+}
+
+<div class="services-detail-page">
+    <!-- Thumbnail Section - Wide at the top -->
+    @if (servicesDetail.FirstOrDefault()?.ServicesThumbnail != null)
+    {
+        <section class="thumbnail-section">
+            @foreach (var thumbnail in servicesDetail.FirstOrDefault()?.ServicesThumbnail)
+            {
+                <img src="@thumbnail.Thumbnail.Url" alt="@servicesDetail.FirstOrDefault()?.ServicesTitle" class="img-fluid w-100" />
+            }
+        </section>
+    }
+
+    <!-- Main Content Section -->
+    <section class="services-detail-content py-5">
+        <div class="container">
+            <!-- Title - Centered -->
+            <div class="text-center mb-5">
+                <h1 class="services-title">@servicesDetail.FirstOrDefault()?.ServicesTitle</h1>
+            </div>
+
+            <!-- Content - Description -->
+            <div class="services-description mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        @Html.Raw(servicesDetail.FirstOrDefault()?.ServicesContent)
+                    </div>
+                </div>
+            </div>
+
+            <!-- DateTime - Bottom Right -->
+            @if (servicesDetail.FirstOrDefault()?.ServicesDateCreated != null)
+            {
+                <div class="text-end">
+                    <small class="text-muted">
+                        Created on: @servicesDetail.FirstOrDefault()?.ServicesDateCreated.ToString("MMMM dd, yyyy")
+                    </small>
+                </div>
+            }
+        </div>
+    </section>
+</div>
