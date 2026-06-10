@@ -1,0 +1,14 @@
+@model TemplateViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="articles-list-page">
+    <!-- Articles Content - Editable Area -->
+    <section class="articles-section py-5">
+        <div class="container">
+            <editable-area area-identifier="articlesContent" />
+        </div>
+    </section>
+</div>
