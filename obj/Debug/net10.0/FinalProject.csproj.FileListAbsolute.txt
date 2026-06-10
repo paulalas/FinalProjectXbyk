@@ -264,3 +264,6 @@ C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\refint\FinalProject.dll
 C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\FinalProject.pdb
 C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\FinalProject.genruntimeconfig.cache
 C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\ref\FinalProject.dll
+C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\FinalProject.RazorAssemblyInfo.cache
+C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\FinalProject.RazorAssemblyInfo.cs
+C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\FinalProject.sourcelink.json
