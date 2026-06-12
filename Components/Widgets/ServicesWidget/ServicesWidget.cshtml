@@ -1,0 +1,133 @@
+@using FinalProject
+@using FinalProject.Widgets
+@using CMS.Websites
+
+@model FinalProject.Widgets.ServicesWidgetViewModel
+
+<style>
+    .services-widget {
+        padding: 80px 0 60px;
+        background: #F6F6F6;
+    }
+
+    .services-widget .section-title {
+        padding-bottom: 50px;
+        overflow: hidden;
+    }
+
+    .services-widget .section-title h2 {
+        font-weight: 600;
+        font-size: 35px;
+        color: #232323;
+    }
+
+    .services-widget .section-title h2 span {
+        color: #28ABE3;
+    }
+
+    .services-widget .section-title .title-border {
+        height: 2px;
+        margin: 20px auto;
+        width: 80px;
+        background: #28ABE3;
+    }
+
+    .services-widget .section-title p {
+        color: #848484;
+        margin: 0 auto;
+    }
+
+    .services-widget .post-item {
+        background: #fff;
+        margin-bottom: 30px;
+    }
+
+    .services-widget .post-item .media-wrapper img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .services-widget .post-item .content {
+        padding: 20px;
+    }
+
+    .services-widget .post-item .content h3 a {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .services-widget .post-item .content h3 a:hover {
+        color: #28ABE3;
+    }
+
+    .services-widget .post-item .content p {
+        color: #757575;
+        margin: 10px 0;
+    }
+
+    .services-widget .btn-service {
+        background: #28ABE3;
+        border: 1px solid #28ABE3;
+        color: #fff;
+        display: inline-block;
+        font-size: 14px;
+        letter-spacing: 1px;
+        padding: 12px 25px;
+        text-transform: uppercase;
+        border-radius: 40px;
+        text-decoration: none;
+        margin: 15px 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .services-widget .btn-service:hover {
+        opacity: 0.8;
+        color: #fff;
+        text-decoration: none;
+    }
+</style>
+
+<section class="services-widget">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-8">
+                <div class="section-title text-center">
+                    <h2>@Model.SectionTitle.Replace(Model.SectionTitleHighlight, "").Trim() <span>@Model.SectionTitleHighlight</span></h2>
+                    <div class="title-border"></div>
+                    @if (!string.IsNullOrEmpty(Model.SectionSubtitle))
+                    {
+                        <p>@Model.SectionSubtitle</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var service in Model.Services)
+            {
+                var thumbnailUrl = service.ServicesThumbnail?.FirstOrDefault()?.Thumbnail?.Url ?? "";
+                var serviceUrl = Url.Content(service.GetUrl().RelativePath);
+                var plainContent = System.Text.RegularExpressions.Regex.Replace(service.ServicesContent ?? "", "<.*?>", "");
+                var excerpt = plainContent.Length > 150 ? plainContent.Substring(0, 150) + "..." : plainContent;
+
+                <article class="col-lg-4 col-md-6">
+                    <div class="post-item">
+                        @if (!string.IsNullOrEmpty(thumbnailUrl))
+                        {
+                            <div class="media-wrapper">
+                                <img loading="lazy" src="@thumbnailUrl" alt="@service.ServicesTitle" class="img-fluid">
+                            </div>
+                        }
+                        <div class="content">
+                            <h3><a href="@serviceUrl">@service.ServicesTitle</a></h3>
+                            <p>@excerpt</p>
+                            <a class="btn-service" href="@serviceUrl">Read more</a>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

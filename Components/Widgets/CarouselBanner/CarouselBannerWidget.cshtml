@@ -1,4 +1,3 @@
-@using CMS.Websites
 @using FinalProject
 @using FinalProject.Widgets
 @using Kentico.PageBuilder.Web.Mvc
@@ -11,121 +10,121 @@
 }
 
 <style>
-    .carousel-banner-container {
-        position: relative;
-        width: 100%;
+    .hero-carousel {
+        height: 100vh;
         overflow: hidden;
     }
 
-    .carousel-banner-item {
-        position: relative;
-        width: 100%;
-        height: 500px;
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .hero-carousel .carousel-inner {
+        height: 100%;
+        overflow: hidden;
     }
 
-    .carousel-banner-overlay {
+    .hero-carousel .carousel-item {
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-carousel .carousel-item::before {
+        content: "";
+        background: rgba(0, 0, 0, 0.63);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .hero-carousel .slide-inner {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
+        right: 0;
+        bottom: 0;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 40px;
-        text-align: center;
         z-index: 1;
     }
 
-    .carousel-banner-title {
-        font-size: 48px;
-        font-weight: bold;
-        color: white;
+    .hero-carousel .hero-content {
+        color: #fff;
+        text-align: center;
+    }
+
+    .hero-carousel .hero-content h1 {
+        font-size: 60px;
+        font-weight: 700;
+        text-transform: uppercase;
         margin-bottom: 20px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        line-height: 1.2;
     }
 
-    .carousel-banner-content {
-        font-size: 18px;
-        color: white;
-        margin-bottom: 30px;
-        max-width: 600px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    .carousel-banner-button {
-        padding: 12px 30px;
+    .hero-carousel .hero-content p {
+        color: #fff;
         font-size: 16px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        text-decoration: none;
+        margin: 0 auto 30px;
+        max-width: 600px;
+        line-height: 1.7;
+    }
+
+    .hero-carousel .btn-hero {
+        background: #28ABE3;
+        border: 1px solid #28ABE3;
+        color: #fff;
         display: inline-block;
+        font-size: 14px;
+        letter-spacing: 1px;
+        padding: 12px 40px;
+        text-transform: uppercase;
+        border-radius: 40px;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
     }
 
-    .carousel-banner-button:hover {
-        background-color: #0056b3;
-        color: white;
+    .hero-carousel .btn-hero:hover {
+        opacity: 0.8;
+        color: #fff;
         text-decoration: none;
     }
 
-    .carousel-fade .carousel-item {
-        opacity: 0;
-        transition-property: opacity;
-        transition-duration: 0.6s;
-    }
-
-    .carousel-fade .carousel-item.active {
-        opacity: 1;
-    }
-
-    .carousel-control-prev,
-    .carousel-control-next {
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 50%;
+    .hero-carousel .carousel-control-prev,
+    .hero-carousel .carousel-control-next {
         width: 50px;
         height: 50px;
         top: 50%;
         transform: translateY(-50%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        opacity: 0.8;
+        transition: background-color 0.3s ease;
     }
 
-    .carousel-control-prev:hover,
-    .carousel-control-next:hover {
+    .hero-carousel .carousel-control-prev:hover,
+    .hero-carousel .carousel-control-next:hover {
+        background-color: rgba(255, 255, 255, 0.3);
         opacity: 1;
     }
 
+    .hero-carousel .carousel-indicators [data-bs-target] {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.6);
+        border: none;
+    }
+
+    .hero-carousel .carousel-indicators .active {
+        background-color: #28ABE3;
+    }
+
     @@media (max-width: 768px) {
-        .carousel-banner-item {
-            height: 300px;
+        .hero-carousel .hero-content h1 {
+            font-size: 36px;
         }
 
-        .carousel-banner-title {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .carousel-banner-content {
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .carousel-banner-button {
-            padding: 10px 20px;
+        .hero-carousel .hero-content p {
             font-size: 14px;
         }
     }
@@ -133,21 +132,20 @@
 
 @if (carouselItems.Any())
 {
-    <div id="@carouselId" class="carousel carousel-banner-container slide carousel-fade" data-bs-ride="carousel">
-        <!-- Carousel Indicators -->
+    <div id="@carouselId" class="carousel hero-carousel slide" data-bs-ride="carousel">
+
         @if (carouselItems.Count > 1)
         {
             <div class="carousel-indicators">
                 @for (int i = 0; i < carouselItems.Count; i++)
                 {
-                    <button type="button" data-bs-target="#@carouselId" data-bs-slide-to="@i" 
-                            class="@(i == 0 ? "active" : "")" 
+                    <button type="button" data-bs-target="#@carouselId" data-bs-slide-to="@i"
+                            class="@(i == 0 ? "active" : "")"
                             aria-label="Slide @(i + 1)"></button>
                 }
             </div>
         }
 
-        <!-- Carousel Items -->
         <div class="carousel-inner">
             @for (int i = 0; i < carouselItems.Count; i++)
             {
@@ -157,40 +155,33 @@
                 var buttonUrl = Url.Content(itemVm.ButtonUrl ?? "");
 
                 <div class="carousel-item @(i == 0 ? "active" : "")"
-                     style="background-image: url('@backgroundImage'); background-size: cover; background-position: center; min-height: 500px;">
-
-                    <!-- Text Content Overlay -->
-                    <div class="carousel-banner-overlay">
-
-                        <!-- Title - Center Top -->
-                        @if (!string.IsNullOrEmpty(item.Title))
-                        {
-                            <h2 class="carousel-banner-title">
-                                @item.Title
-                            </h2>
-                        }
-
-                        <!-- Content - Center Mid -->
-                        @if (!string.IsNullOrEmpty(item.Content))
-                        {
-                            <div class="carousel-banner-content">
-                                @Html.Raw(item.Content)
+                     style="background-image: url('@backgroundImage');">
+                    <div class="slide-inner">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="hero-content">
+                                        @if (!string.IsNullOrEmpty(item.Title))
+                                        {
+                                            <h1>@item.Title</h1>
+                                        }
+                                        @if (!string.IsNullOrEmpty(item.Content))
+                                        {
+                                            <p>@Html.Raw(item.Content)</p>
+                                        }
+                                        @if (!string.IsNullOrEmpty(item.ButtonText) && !string.IsNullOrEmpty(buttonUrl))
+                                        {
+                                            <a href="@buttonUrl" class="btn-hero">@item.ButtonText</a>
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                        }
-
-                        <!-- Button - Center Bottom -->
-                        @if (!string.IsNullOrEmpty(item.ButtonText) && !string.IsNullOrEmpty(buttonUrl))
-                        {
-                            <a href="@buttonUrl" class="carousel-banner-button">
-                                @item.ButtonText
-                            </a>
-                        }
+                        </div>
                     </div>
                 </div>
             }
         </div>
 
-        <!-- Carousel Controls -->
         @if (carouselItems.Count > 1)
         {
             <button class="carousel-control-prev" type="button" data-bs-target="#@carouselId" data-bs-slide="prev">
