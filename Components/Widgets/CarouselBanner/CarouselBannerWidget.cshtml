@@ -89,6 +89,22 @@
         text-decoration: none;
     }
 
+    /* Content animation — only when carousel has multiple slides */
+    .hero-carousel.has-animation .hero-content h1,
+    .hero-carousel.has-animation .hero-content p,
+    .hero-carousel.has-animation .hero-content .btn-hero {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .hero-carousel.has-animation .hero-content h1.visible,
+    .hero-carousel.has-animation .hero-content p.visible,
+    .hero-carousel.has-animation .hero-content .btn-hero.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     .hero-carousel .carousel-control-prev,
     .hero-carousel .carousel-control-next {
         width: 50px;
@@ -132,7 +148,7 @@
 
 @if (carouselItems.Any())
 {
-    <div id="@carouselId" class="carousel hero-carousel slide" data-bs-ride="carousel">
+    <div id="@carouselId" class="carousel hero-carousel slide @(carouselItems.Count > 1 ? "has-animation" : "")" data-bs-ride="carousel">
 
         @if (carouselItems.Count > 1)
         {
@@ -194,6 +210,54 @@
             </button>
         }
     </div>
+
+    @if (carouselItems.Count > 1)
+    {
+        <script>
+            (function () {
+                var carouselEl = document.getElementById('@carouselId');
+                if (!carouselEl) return;
+
+                function getContentEls(slide) {
+                    return [
+                        slide.querySelector('.hero-content h1'),
+                        slide.querySelector('.hero-content p'),
+                        slide.querySelector('.hero-content .btn-hero')
+                    ].filter(Boolean);
+                }
+
+                function hideInstantly(slide) {
+                    getContentEls(slide).forEach(function (el) {
+                        el.style.transition = 'none';
+                        el.classList.remove('visible');
+                        el.offsetHeight; // force reflow so transition:none applies immediately
+                        el.style.transition = '';
+                    });
+                }
+
+                function animateIn(slide) {
+                    var els = getContentEls(slide);
+                    setTimeout(function () { if (els[0]) els[0].classList.add('visible'); }, 100);
+                    setTimeout(function () { if (els[1]) els[1].classList.add('visible'); }, 400);
+                    setTimeout(function () { if (els[2]) els[2].classList.add('visible'); }, 700);
+                }
+
+                // animate first slide on page load
+                var firstSlide = carouselEl.querySelector('.carousel-item.active');
+                if (firstSlide) animateIn(firstSlide);
+
+                // before the image moves — instantly hide incoming slide's content
+                carouselEl.addEventListener('slide.bs.carousel', function (e) {
+                    hideInstantly(e.relatedTarget);
+                });
+
+                // after the image finishes moving — animate content in sequence
+                carouselEl.addEventListener('slid.bs.carousel', function (e) {
+                    animateIn(e.relatedTarget);
+                });
+            })();
+        </script>
+    }
 }
 else
 {

@@ -57,5 +57,11 @@ namespace FinalProject
 		/// ServicesThumbnail.
 		/// </summary>
 		public IEnumerable<Assets> ServicesThumbnail { get; set; }
+
+
+		/// <summary>
+		/// ServicesCategory.
+		/// </summary>
+		public string ServicesCategory { get; set; }
 	}
 }
