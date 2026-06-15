@@ -26,6 +26,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXENhcm91c2VsQmFubmVyXENhcm91c2VsQmFubmVyV2lkZ2V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/ContentBlockWidget/ContentBlockWidget.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXENvbnRlbnRCbG9ja1dpZGdldFxDb250ZW50QmxvY2tXaWRnZXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/LatestArticlesWidget/LatestArticlesWidget.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXExhdGVzdEFydGljbGVzV2lkZ2V0XExhdGVzdEFydGljbGVzV2lkZ2V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

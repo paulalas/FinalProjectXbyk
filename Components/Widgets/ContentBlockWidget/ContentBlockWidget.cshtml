@@ -1,0 +1,67 @@
+@using FinalProject.Widgets
+@using Kentico.PageBuilder.Web.Mvc
+
+@model FinalProject.Widgets.ContentBlockWidgetProperties
+
+<style>
+    .content-block-widget {
+        padding: 80px 0 60px;
+        background: #F6F6F6;
+    }
+
+    .content-block-widget .section-title {
+        padding-bottom: 50px;
+        overflow: hidden;
+    }
+
+    .content-block-widget .section-title h2 {
+        font-weight: 600;
+        font-size: 35px;
+        color: #232323;
+    }
+
+    .content-block-widget .title-border {
+        height: 2px;
+        margin: 20px auto;
+        width: 80px;
+        background: #28ABE3;
+    }
+
+    .content-block-widget .content-block-body {
+        color: #757575;
+        font-size: 16px;
+        line-height: 1.8;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .content-block-widget .content-block-body a {
+        color: #28ABE3;
+    }
+
+    .content-block-widget .content-block-body a:hover {
+        opacity: 0.8;
+    }
+</style>
+
+<section class="content-block-widget">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10 text-center">
+                @if (!string.IsNullOrEmpty(Model.Title))
+                {
+                    <div class="section-title">
+                        <h2>@Model.Title</h2>
+                        <div class="title-border"></div>
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(Model.Content))
+                {
+                    <div class="content-block-body">
+                        @Html.Raw(Model.Content)
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
