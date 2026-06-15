@@ -18,7 +18,7 @@ namespace FinalProject.Widgets
             CarouselBanner.CONTENT_TYPE_NAME,
             Label = "Carousel Banner Items",
             Order = 1,
-            MinimumItems = 2,
+            MinimumItems = 1,
             MaximumItems = 4)]
         public IEnumerable<ContentItemReference> CarouselItems { get; set; } = new List<ContentItemReference>();
     }
