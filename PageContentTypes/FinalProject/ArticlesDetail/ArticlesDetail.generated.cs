@@ -63,5 +63,11 @@ namespace FinalProject
 		/// ArticleCategory.
 		/// </summary>
 		public string ArticleCategory { get; set; }
+
+
+		/// <summary>
+		/// ArticleTaxonomy.
+		/// </summary>
+		public IEnumerable<TagReference> ArticleTaxonomy { get; set; }
 	}
 }

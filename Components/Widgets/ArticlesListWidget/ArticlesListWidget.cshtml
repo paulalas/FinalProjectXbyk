@@ -279,8 +279,13 @@
                 var articleUrl = Url.Content(article.GetUrl().RelativePath);
                 var plainContent = System.Text.RegularExpressions.Regex.Replace(article.ArticleContent ?? "", "<.*?>", "");
                 var excerpt = plainContent.Length > 150 ? plainContent.Substring(0, 150) + "..." : plainContent;
+                var articleTags = article.ArticleTaxonomy?
+                    .Select(t => Model.TagTitles.TryGetValue(t.Identifier, out var title) ? title : "")
+                    .Where(t => !string.IsNullOrEmpty(t))
+                    .ToList() ?? new List<string>();
+                var tagsString = string.Join(",", articleTags);
 
-                <article class="col-lg-4 col-md-6 article-card" data-category="@article.ArticleCategory" data-title="@article.ArticleTitle?.ToLower()" data-content="@plainContent.ToLower()">
+                <article class="col-lg-4 col-md-6 article-card" data-tags="@tagsString" data-title="@article.ArticleTitle?.ToLower()" data-content="@plainContent.ToLower()">
                     <div class="post-item">
                         @if (!string.IsNullOrEmpty(thumbnailUrl))
                         {
@@ -289,9 +294,9 @@
                             </div>
                         }
                         <div class="content">
-                            @if (!string.IsNullOrEmpty(article.ArticleCategory))
+                            @if (articleTags.Any())
                             {
-                                <span class="article-category">@article.ArticleCategory</span>
+                                <span class="article-category">@string.Join(", ", articleTags)</span>
                             }
                             <h3><a href="@articleUrl">@article.ArticleTitle</a></h3>
                             <p>@excerpt</p>
@@ -326,7 +331,8 @@
 
         function getFiltered() {
             return cards.filter(function (c) {
-                var matchesCategory = currentFilter === '' || c.dataset.category === currentFilter;
+                var matchesCategory = currentFilter === '' ||
+                    (c.dataset.tags && c.dataset.tags.split(',').indexOf(currentFilter) !== -1);
                 var matchesSearch   = currentSearch === '' ||
                     (c.dataset.title && c.dataset.title.includes(currentSearch)) ||
                     (c.dataset.content && c.dataset.content.includes(currentSearch));

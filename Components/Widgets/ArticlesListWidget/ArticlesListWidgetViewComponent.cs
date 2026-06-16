@@ -4,9 +4,12 @@ using FinalProject.Widgets;
 using FinalProject;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CMS.DataEngine;
+using CMS.ContentEngine;
 
 [assembly: RegisterWidget(
     ArticlesListWidgetViewComponent.IDENTIFIER,
@@ -23,10 +26,12 @@ namespace FinalProject.Widgets
         public const string IDENTIFIER = "FinalProject.ArticlesListWidget";
 
         private readonly IContentRetriever _contentRetriever;
+        private readonly ITaxonomyRetriever _taxonomyRetriever;
 
-        public ArticlesListWidgetViewComponent(IContentRetriever contentRetriever)
+        public ArticlesListWidgetViewComponent(IContentRetriever contentRetriever, ITaxonomyRetriever taxonomyRetriever)
         {
             _contentRetriever = contentRetriever;
+            _taxonomyRetriever = taxonomyRetriever;
         }
 
         public async Task<ViewViewComponentResult> InvokeAsync(ArticlesListWidgetProperties properties)
@@ -39,11 +44,28 @@ namespace FinalProject.Widgets
 
             var articleList = allArticles.ToList();
 
-            var categories = articleList
-                .Select(a => a.ArticleCategory)
-                .Where(c => !string.IsNullOrEmpty(c))
+            // Collect all unique tag GUIDs across all articles
+            var allTagGuids = articleList
+                .SelectMany(a => a.ArticleTaxonomy ?? Enumerable.Empty<TagReference>())
+                .Select(t => t.Identifier)
                 .Distinct()
-                .OrderBy(c => c)
+                .ToArray();
+
+            // Resolve GUIDs → tag titles via Kentico taxonomy service
+            var tagLookup = new Dictionary<Guid, string>();
+            if (allTagGuids.Length > 0)
+            {
+                var tags = await _taxonomyRetriever.RetrieveTags(allTagGuids, "en");
+                foreach (var tag in tags)
+                {
+                    tagLookup[tag.Identifier] = tag.Title;
+                }
+            }
+
+            // Unique sorted tag titles for filter buttons
+            var categories = tagLookup.Values
+                .Distinct()
+                .OrderBy(t => t)
                 .ToList();
 
             var viewModel = new ArticlesListWidgetViewModel
@@ -52,7 +74,8 @@ namespace FinalProject.Widgets
                 SectionTitleHighlight = properties.SectionTitleHighlight,
                 SectionSubtitle = properties.SectionSubtitle,
                 Articles = articleList,
-                Categories = categories
+                Categories = categories,
+                TagTitles = tagLookup
             };
 
             return View("~/Components/Widgets/ArticlesListWidget/ArticlesListWidget.cshtml", viewModel);
