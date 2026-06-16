@@ -179,6 +179,63 @@
         padding: 40px 0;
         display: none;
     }
+
+    .articles-list-widget .search-bar {
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .articles-list-widget .search-bar .search-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .articles-list-widget .search-bar input {
+        width: 100%;
+        padding: 12px 50px 12px 20px;
+        border: 1px solid #ddd;
+        border-radius: 40px;
+        font-size: 15px;
+        color: #232323;
+        background: #fff;
+        outline: none;
+        transition: border-color 0.2s ease;
+    }
+
+    .articles-list-widget .search-bar input:focus {
+        border-color: #28ABE3;
+    }
+
+    .articles-list-widget .search-bar .search-icon {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #28ABE3;
+        font-size: 16px;
+        pointer-events: none;
+    }
+
+    .articles-list-widget .search-bar .clear-btn {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        font-size: 18px;
+        cursor: pointer;
+        display: none;
+        background: none;
+        border: none;
+        line-height: 1;
+        padding: 0;
+    }
+
+    .articles-list-widget .search-bar .clear-btn:hover {
+        color: #28ABE3;
+    }
 </style>
 
 <section class="articles-list-widget" id="@widgetId">
@@ -194,6 +251,13 @@
                         <p>@Model.SectionSubtitle</p>
                     }
                 </div>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <div class="search-wrap">
+                <input type="text" id="@(widgetId)-search" placeholder="Search articles..." autocomplete="off" />
+                <button class="clear-btn" id="@(widgetId)-clear" title="Clear">&times;</button>
             </div>
         </div>
 
@@ -216,7 +280,7 @@
                 var plainContent = System.Text.RegularExpressions.Regex.Replace(article.ArticleContent ?? "", "<.*?>", "");
                 var excerpt = plainContent.Length > 150 ? plainContent.Substring(0, 150) + "..." : plainContent;
 
-                <article class="col-lg-4 col-md-6 article-card" data-category="@article.ArticleCategory">
+                <article class="col-lg-4 col-md-6 article-card" data-category="@article.ArticleCategory" data-title="@article.ArticleTitle?.ToLower()" data-content="@plainContent.ToLower()">
                     <div class="post-item">
                         @if (!string.IsNullOrEmpty(thumbnailUrl))
                         {
@@ -248,33 +312,38 @@
 <script>
     (function () {
         var PAGE_SIZE = 5;
-        var widgetEl = document.getElementById('@widgetId');
-        var cards = Array.from(widgetEl.querySelectorAll('.article-card'));
+        var widgetEl   = document.getElementById('@widgetId');
+        var cards      = Array.from(widgetEl.querySelectorAll('.article-card'));
         var paginationEl = document.getElementById('@(widgetId)-pagination');
-        var noResults = document.getElementById('@(widgetId)-no-results');
+        var noResults  = document.getElementById('@(widgetId)-no-results');
         var filterBtns = widgetEl.querySelectorAll('.filter-btn');
+        var searchInput = document.getElementById('@(widgetId)-search');
+        var clearBtn   = document.getElementById('@(widgetId)-clear');
 
         var currentFilter = '';
-        var currentPage = 1;
+        var currentSearch = '';
+        var currentPage   = 1;
 
         function getFiltered() {
-            return currentFilter === ''
-                ? cards
-                : cards.filter(function (c) { return c.dataset.category === currentFilter; });
+            return cards.filter(function (c) {
+                var matchesCategory = currentFilter === '' || c.dataset.category === currentFilter;
+                var matchesSearch   = currentSearch === '' ||
+                    (c.dataset.title && c.dataset.title.includes(currentSearch)) ||
+                    (c.dataset.content && c.dataset.content.includes(currentSearch));
+                return matchesCategory && matchesSearch;
+            });
         }
 
         function render() {
-            var filtered = getFiltered();
+            var filtered   = getFiltered();
             var totalPages = Math.ceil(filtered.length / PAGE_SIZE);
             if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
 
-            // hide all then show current page slice
             cards.forEach(function (c) { c.classList.remove('visible'); });
             var start = (currentPage - 1) * PAGE_SIZE;
             filtered.slice(start, start + PAGE_SIZE).forEach(function (c) { c.classList.add('visible'); });
 
             noResults.style.display = filtered.length === 0 ? 'block' : 'none';
-
             renderPagination(totalPages);
         }
 
@@ -283,11 +352,9 @@
             if (totalPages <= 1) return;
 
             paginationEl.appendChild(makePageBtn('&#8249;', currentPage - 1, currentPage <= 1));
-
             for (var p = 1; p <= totalPages; p++) {
                 paginationEl.appendChild(makePageBtn(p, p, false, p === currentPage));
             }
-
             paginationEl.appendChild(makePageBtn('&#8250;', currentPage + 1, currentPage >= totalPages));
         }
 
@@ -305,14 +372,39 @@
             return btn;
         }
 
+        // Category filter
         filterBtns.forEach(function (btn) {
             btn.addEventListener('click', function () {
                 filterBtns.forEach(function (b) { b.classList.remove('active'); });
                 btn.classList.add('active');
                 currentFilter = btn.dataset.filter;
-                currentPage = 1;
+                currentPage   = 1;
                 render();
             });
+        });
+
+        // Search — resets category to All
+        searchInput.addEventListener('input', function () {
+            currentSearch = searchInput.value.trim().toLowerCase();
+            clearBtn.style.display = currentSearch ? 'block' : 'none';
+
+            // reset category filter
+            filterBtns.forEach(function (b) { b.classList.remove('active'); });
+            var allBtn = widgetEl.querySelector('.filter-btn[data-filter=""]');
+            if (allBtn) allBtn.classList.add('active');
+            currentFilter = '';
+            currentPage   = 1;
+            render();
+        });
+
+        // Clear button
+        clearBtn.addEventListener('click', function () {
+            searchInput.value = '';
+            currentSearch = '';
+            clearBtn.style.display = 'none';
+            currentPage = 1;
+            render();
+            searchInput.focus();
         });
 
         render();
