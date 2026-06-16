@@ -18,7 +18,7 @@ using CMS.Websites;
     "Carousel Banner",
     typeof(CarouselBannerWidgetProperties),
     Description = "Displays a carousel of banner items with background images, titles, content, and buttons",
-    IconClass = "xp-icon-rectangle")]
+    IconClass = "xp-carousel")]
 
 namespace FinalProject.Widgets
 {

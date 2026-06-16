@@ -14,7 +14,7 @@ using CMS.DataEngine;
     "Services",
     typeof(ServicesWidgetProperties),
     Description = "Displays the latest 3 services",
-    IconClass = "xp-wrench")]
+    IconClass = "xp-briefcase")]
 
 namespace FinalProject.Widgets
 {

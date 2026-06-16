@@ -14,7 +14,7 @@ using CMS.DataEngine;
     "Services List",
     typeof(ServicesListWidgetProperties),
     Description = "Filterable, paginated list of all services",
-    IconClass = "xp-list")]
+    IconClass = "xp-clipboard-list")]
 
 namespace FinalProject.Widgets
 {

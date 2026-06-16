@@ -14,7 +14,7 @@ using CMS.DataEngine;
     "Articles List",
     typeof(ArticlesListWidgetProperties),
     Description = "Filterable, paginated list of all articles",
-    IconClass = "xp-list")]
+    IconClass = "xp-list-bullets")]
 
 namespace FinalProject.Widgets
 {

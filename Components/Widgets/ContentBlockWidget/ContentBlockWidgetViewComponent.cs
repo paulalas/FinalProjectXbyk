@@ -10,7 +10,7 @@ using System.Threading.Tasks;
     "Content Block",
     typeof(ContentBlockWidgetProperties),
     Description = "Editable title and rich text content block",
-    IconClass = "xp-edit")]
+    IconClass = "xp-paragraph")]
 
 namespace FinalProject.Widgets
 {
