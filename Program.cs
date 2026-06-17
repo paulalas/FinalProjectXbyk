@@ -1,4 +1,5 @@
 ﻿using FinalProject;
+using FigmaProject;
 using Kentico.Content.Web.Mvc.Routing;
 using Kentico.PageBuilder.Web.Mvc;
 using Kentico.Web.Mvc;
@@ -23,6 +24,7 @@ builder.Services.AddKentico(features =>
             ArticlesDetail.CONTENT_TYPE_NAME,
             ServicesList.CONTENT_TYPE_NAME,
             ServicesDetail.CONTENT_TYPE_NAME,
+            FigmaHome.CONTENT_TYPE_NAME,
         }
     });
     features.UseWebPageRouting();

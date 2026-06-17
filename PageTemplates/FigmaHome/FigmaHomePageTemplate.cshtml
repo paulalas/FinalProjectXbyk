@@ -1,0 +1,29 @@
+@using Kentico.PageBuilder.Web.Mvc
+
+@model TemplateViewModel
+
+@{
+    Layout = "~/Views/Shared/_figma_default.cshtml";
+}
+
+<div class="figma-home-page">
+    <!-- Hero Section -->
+    <section>
+        <editable-area area-identifier="hero" />
+    </section>
+
+    <!-- Main Content -->
+    <section>
+        <editable-area area-identifier="mainContent" />
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <editable-area area-identifier="features" />
+    </section>
+
+    <!-- Call to Action -->
+    <section>
+        <editable-area area-identifier="callToAction" />
+    </section>
+</div>
