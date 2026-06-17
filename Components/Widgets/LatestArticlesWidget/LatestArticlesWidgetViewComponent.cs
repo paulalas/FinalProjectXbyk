@@ -14,7 +14,7 @@ using CMS.DataEngine;
     "Latest Articles",
     typeof(LatestArticlesWidgetProperties),
     Description = "Displays the latest 3 articles",
-    IconClass = "xp-newspaper")]
+    IconClass = "icon-newspaper")]
 
 namespace FinalProject.Widgets
 {
