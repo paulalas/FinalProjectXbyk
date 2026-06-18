@@ -1,0 +1,139 @@
+@using FigmaProject
+@using FinalProject.Widgets
+
+@model FinalProject.Widgets.FigmaFeaturesWidgetViewModel
+
+<style>
+  .ffe-section{
+    background:#FFFFFF;
+    padding:64px 24px;
+  }
+  .ffe-card{
+    position:relative;
+    max-width:1800px;
+    margin:0 auto;
+    background:#142257;
+    border-radius:24px;
+    padding:clamp(40px,5vw,64px) clamp(32px,9.4vw,180px);
+    display:flex;
+    flex-direction:column;
+    gap:48px;
+    overflow:hidden;
+  }
+
+  .ffe-header{
+    display:flex;
+    align-items:flex-end;
+    gap:80px;
+  }
+  .ffe-title{
+    flex:1 1 auto;
+    font-weight:700;
+    font-size:clamp(2.2rem,3.4vw,3.25rem);
+    line-height:1.23;
+    color:#FFFFFF;
+  }
+  .ffe-intro{
+    flex:0 1 613px;
+    font-weight:400;
+    font-size:1.125rem;
+    line-height:1.56;
+    color:#9EA3B5;
+  }
+
+  .ffe-divider{
+    height:1px;
+    background:rgba(255,255,255,.13);
+    border:0;
+  }
+
+  .ffe-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:clamp(48px,8vw,120px);
+    row-gap:56px;
+  }
+  .ffe-item{
+    display:flex;
+    align-items:flex-start;
+    gap:28px;
+  }
+  .ffe-icon{ flex-shrink:0; }
+  .ffe-icon i{
+    font-size:44px;
+    color:#9EA3B5;
+    line-height:1;
+    display:block;
+  }
+  .ffe-text h3{
+    font-weight:700;
+    font-size:1.5rem;
+    line-height:1.33;
+    color:#FFFFFF;
+    margin-bottom:12px;
+  }
+  .ffe-text p{
+    font-weight:400;
+    font-size:1.125rem;
+    line-height:1.56;
+    color:#9EA3B5;
+  }
+
+  .ffe-notch{
+    position:absolute;
+    top:12.5%;
+    width:20px;
+    height:75%;
+    background:#FFFFFF;
+  }
+  .ffe-notch.left  { left:0;  clip-path:polygon(0 0,100% 12%,100% 88%,0 100%); }
+  .ffe-notch.right { right:0; clip-path:polygon(100% 0,100% 100%,0 88%,0 12%); }
+
+  @@media (max-width:760px){
+    .ffe-section{ padding:24px 16px; }
+    .ffe-card{ padding:40px 24px; gap:36px; }
+    .ffe-header{ flex-direction:column; align-items:center; text-align:center; gap:20px; }
+    .ffe-title{ font-size:1.6rem; }
+    .ffe-intro{ flex:none; font-size:1.02rem; }
+    .ffe-grid{ grid-template-columns:1fr; row-gap:40px; }
+    .ffe-item{ flex-direction:column; align-items:center; text-align:center; gap:16px; }
+    .ffe-icon i{ font-size:38px; }
+    .ffe-text h3{ font-size:1.25rem; }
+    .ffe-text p{ font-size:1.02rem; }
+    .ffe-notch{ display:none; }
+  }
+</style>
+
+<section class="ffe-section">
+  <div class="ffe-card">
+
+    <div class="ffe-header">
+      <h2 class="ffe-title">@Model.Title</h2>
+      <p class="ffe-intro">@Model.ContentText</p>
+    </div>
+
+    <hr class="ffe-divider">
+
+    <div class="ffe-grid">
+      @foreach (var item in Model.FeatureItems)
+      {
+        <div class="ffe-item">
+          <span class="ffe-icon">
+            @if (!string.IsNullOrEmpty(item.Icon))
+            {
+              <i class="@item.Icon"></i>
+            }
+          </span>
+          <div class="ffe-text">
+            <h3>@item.Title</h3>
+            <p>@item.ContentText</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <span class="ffe-notch left"></span>
+    <span class="ffe-notch right"></span>
+
+  </div>
+</section>

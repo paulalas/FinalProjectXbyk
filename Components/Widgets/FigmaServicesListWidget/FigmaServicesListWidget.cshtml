@@ -1,0 +1,165 @@
+@using FigmaProject
+@using FinalProject.Widgets
+
+@model FinalProject.Widgets.FigmaServicesListWidgetViewModel
+
+<style>
+  .fos-section{
+    background:#FFFFFF;
+    color:#171921;
+    padding:clamp(64px, 9vw, 120px) 24px;
+  }
+  .fos-inner{
+    max-width:1440px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:60px;
+  }
+
+  .fos-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+    max-width:560px;
+    text-align:center;
+  }
+  .fos-title{
+    font-weight:700;
+    font-size:clamp(2.2rem, 4vw, 3.25rem);
+    line-height:1.23;
+    color:#171921;
+  }
+  .fos-sub{
+    font-weight:400;
+    font-size:1.125rem;
+    line-height:1.56;
+    color:#545971;
+  }
+
+  .fos-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    width:100%;
+  }
+
+  .fos-card{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+    padding:32px;
+  }
+  .fos-icon{
+    width:64px; height:64px;
+    border-radius:20px;
+    background:#142257;
+    display:grid; place-items:center;
+    flex-shrink:0;
+  }
+  .fos-icon i{
+    font-size:28px;
+    color:#FFFFFF;
+    line-height:1;
+  }
+  .fos-card h3{
+    font-weight:700;
+    font-size:1.5rem;
+    line-height:1.33;
+    color:#171921;
+  }
+  .fos-card p{
+    font-weight:400;
+    font-size:1.125rem;
+    line-height:1.56;
+    color:#545971;
+  }
+
+  .fos-cta{
+    background:#15B2F5;
+    border-radius:24px;
+    padding:32px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:24px;
+    text-align:center;
+  }
+  .fos-cta h3{ color:#FFFFFF; font-weight:700; font-size:1.5rem; line-height:1.33; }
+  .fos-cta p{ color:#FFFFFF; font-weight:400; font-size:1.125rem; line-height:1.56; }
+  .fos-cta-btn{
+    display:block;
+    width:100%;
+    background:#FFFFFF;
+    color:#15B2F5;
+    border:none;
+    border-radius:60px;
+    padding:16px;
+    font-family:inherit;
+    font-weight:700;
+    font-size:1.5rem;
+    text-align:center;
+    text-decoration:none;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .fos-cta-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 26px -10px rgba(0,0,0,.25);
+    color:#15B2F5;
+    text-decoration:none;
+  }
+
+  @@media (max-width:1100px){
+    .fos-grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+
+  @@media (max-width:760px){
+    .fos-inner{ gap:40px; }
+    .fos-grid{ grid-template-columns:1fr; }
+    .fos-card{ align-items:center; text-align:center; padding:24px 20px; }
+    .fos-title{ font-size:1.9rem; }
+    .fos-card h3{ font-size:1.35rem; }
+    .fos-card p, .fos-sub, .fos-cta p{ font-size:1.06rem; }
+    .fos-cta{ padding:32px 24px; }
+  }
+</style>
+
+<section class="fos-section">
+  <div class="fos-inner">
+
+    <div class="fos-header">
+      <h2 class="fos-title">@Model.SectionTitle</h2>
+      <p class="fos-sub">@Model.SectionSubtitle</p>
+    </div>
+
+    <div class="fos-grid">
+
+      @foreach (var card in Model.ServiceCards)
+      {
+        <div class="fos-card">
+          <span class="fos-icon">
+            @if (!string.IsNullOrEmpty(card.Icon))
+            {
+              <i class="@card.Icon"></i>
+            }
+          </span>
+          <h3>@card.Title</h3>
+          <p>@card.ContentText</p>
+        </div>
+      }
+
+      <div class="fos-cta">
+        <div>
+          <h3>@Model.CtaTitle</h3>
+          <p>@Model.CtaText</p>
+        </div>
+        <a href="@Model.CtaButtonLink" class="fos-cta-btn">@Model.CtaButtonText</a>
+      </div>
+
+    </div>
+  </div>
+</section>

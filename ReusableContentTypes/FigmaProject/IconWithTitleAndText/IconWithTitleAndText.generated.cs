@@ -35,12 +35,6 @@ namespace FigmaProject
 
 
 		/// <summary>
-		/// Icon.
-		/// </summary>
-		public string Icon { get; set; }
-
-
-		/// <summary>
 		/// Title.
 		/// </summary>
 		public string Title { get; set; }
@@ -50,5 +44,11 @@ namespace FigmaProject
 		/// ContentText.
 		/// </summary>
 		public string ContentText { get; set; }
+
+
+		/// <summary>
+		/// Icon.
+		/// </summary>
+		public string Icon { get; set; }
 	}
 }

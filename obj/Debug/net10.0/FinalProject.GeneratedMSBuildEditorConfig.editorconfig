@@ -38,8 +38,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXEZpZ21hQWJvdXRVc1dpZGdldFxGaWdtYUFib3V0VXNXaWRnZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/FigmaFeaturesWidget/FigmaFeaturesWidget.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXEZpZ21hRmVhdHVyZXNXaWRnZXRcRmlnbWFGZWF0dXJlc1dpZGdldC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/FigmaHeroBannerWidget/FigmaHeroBannerWidget.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXEZpZ21hSGVyb0Jhbm5lcldpZGdldFxGaWdtYUhlcm9CYW5uZXJXaWRnZXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/FigmaServicesListWidget/FigmaServicesListWidget.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXEZpZ21hU2VydmljZXNMaXN0V2lkZ2V0XEZpZ21hU2VydmljZXNMaXN0V2lkZ2V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/LatestArticlesWidget/LatestArticlesWidget.cshtml]
