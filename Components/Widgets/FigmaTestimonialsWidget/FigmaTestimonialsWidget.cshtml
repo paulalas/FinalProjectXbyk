@@ -1,0 +1,254 @@
+@using FigmaProject
+@using FinalProject.Widgets
+@using System
+
+@model FinalProject.Widgets.FigmaTestimonialsWidgetViewModel
+
+@{
+    var wId = $"frt_{Guid.NewGuid().ToString("N").Substring(0, 8)}";
+}
+
+<style>
+  .frt-section{
+    background:#FFFFFF;
+    color:#171921;
+    padding:clamp(56px,8vw,110px) 24px;
+  }
+  .frt-inner{
+    max-width:1130px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:clamp(40px,5vw,66px);
+  }
+  .frt-title{
+    max-width:650px;
+    text-align:center;
+    font-weight:700;
+    font-size:clamp(2.1rem,3.6vw,3.25rem);
+    line-height:1.23;
+    color:#171921;
+  }
+
+  .frt-carousel{
+    width:100%;
+    display:grid;
+    grid-template-columns:auto minmax(0,986px) auto;
+    grid-template-areas:
+      "left card right"
+      ".    dots .";
+    align-items:center;
+    justify-items:center;
+    column-gap:24px;
+    row-gap:40px;
+  }
+
+  .frt-card{
+    grid-area:card;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .frt-logo-wrap{
+    height:60px;
+    display:flex;
+    align-items:center;
+    padding:12px 0;
+  }
+  .frt-logo-img{
+    height:100%;
+    max-width:200px;
+    width:auto;
+    object-fit:contain;
+  }
+  .frt-logo-ph{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:800;
+    font-size:1.75rem;
+    letter-spacing:-.5px;
+    color:#191919;
+  }
+  .frt-logo-ph svg{ width:30px; height:30px; }
+
+  .frt-divider{ width:100%; height:1px; background:#ECEEF3; border:0; }
+
+  .frt-text{
+    max-width:728px;
+    margin:40px auto 36px;
+    text-align:center;
+    font-weight:400;
+    font-size:1.25rem;
+    line-height:1.6;
+    color:#545971;
+  }
+  .frt-profile{
+    display:flex;
+    align-items:center;
+    gap:24px;
+  }
+  .frt-avatar{
+    width:76px; height:76px; border-radius:50%;
+    object-fit:cover;
+    flex-shrink:0;
+  }
+  .frt-avatar-ph{
+    width:76px; height:76px; border-radius:50%;
+    background:linear-gradient(135deg,#cdd6e6,#9aa6bf);
+    flex-shrink:0;
+  }
+  .frt-name{
+    font-weight:700; font-size:1.5rem; line-height:1.33; color:#171921;
+    margin-bottom:6px;
+  }
+  .frt-stars{ display:flex; gap:2px; }
+  .frt-stars svg{ width:26px; height:26px; }
+
+  .frt-arrow{
+    width:48px; height:48px; border-radius:999px;
+    border:none; cursor:pointer;
+    display:grid; place-items:center;
+    transition:transform .15s ease, filter .15s ease;
+  }
+  .frt-arrow svg{ width:24px; height:24px; }
+  .frt-arrow.left { grid-area:left;  background:#E3E6F0; }
+  .frt-arrow.left  svg{ stroke:#9aa3b5; fill:none; }
+  .frt-arrow.right{ grid-area:right; background:#15B2F5; }
+  .frt-arrow.right svg{ stroke:#FFFFFF; fill:none; }
+  .frt-arrow:hover{ transform:translateY(-1px); filter:brightness(.95); }
+
+  .frt-dots{ grid-area:dots; display:flex; align-items:center; gap:12px; }
+  .frt-dot{
+    display:block;
+    width:12px; height:12px; border-radius:24px;
+    background:#E3E6F0;
+    transition:width .2s ease, background .2s ease;
+  }
+  .frt-dot.active{ width:40px; background:#15B2F5; }
+
+  @@media (max-width:760px){
+    .frt-section{ padding:40px 24px 48px; }
+    .frt-title{ font-size:1.55rem; }
+    .frt-carousel{
+      grid-template-columns:auto 1fr auto;
+      grid-template-areas:
+        "card card card"
+        "left dots right";
+      row-gap:28px;
+    }
+    .frt-logo-wrap{ height:44px; }
+    .frt-logo-ph{ font-size:1.4rem; }
+    .frt-logo-ph svg{ width:24px; height:24px; }
+    .frt-text{ font-size:1.06rem; margin:28px auto 24px; line-height:1.55; }
+    .frt-profile{ flex-direction:column; gap:12px; text-align:center; }
+    .frt-name{ font-size:1.2rem; margin-bottom:4px; }
+    .frt-stars{ justify-content:center; }
+    .frt-stars svg{ width:22px; height:22px; }
+  }
+</style>
+
+<section class="frt-section">
+  <div class="frt-inner">
+
+    <h2 class="frt-title">@Model.SectionTitle</h2>
+
+    @if (Model.Testimonials.Any())
+    {
+      <div class="frt-carousel" id="@wId">
+
+        <button class="frt-arrow left" aria-label="Previous review">
+          <svg viewBox="0 0 24 24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 5l-7 7 7 7"/>
+          </svg>
+        </button>
+
+        @for (int i = 0; i < Model.Testimonials.Count; i++)
+        {
+          var item = Model.Testimonials[i];
+          var starCount = (int)Math.Floor((double)item.TestimonialStars);
+          <div class="frt-card frt-card-item" style="@(i == 0 ? "" : "display:none")">
+
+            <div class="frt-logo-wrap">
+              @if (!string.IsNullOrEmpty(item.logo?.Url))
+              {
+                <img class="frt-logo-img" src="@item.logo.Url" alt="Review platform logo">
+              }
+              else
+              {
+                <div class="frt-logo-ph">No logo</div>
+              }
+            </div>
+
+            <hr class="frt-divider">
+
+            <p class="frt-text">@item.Testimony</p>
+
+            <div class="frt-profile">
+              @if (!string.IsNullOrEmpty(item.TestimonialThumbnail?.Url))
+              {
+                <img class="frt-avatar" src="@item.TestimonialThumbnail.Url" alt="@item.TestimonialName">
+              }
+              else
+              {
+                <div class="frt-avatar-ph"></div>
+              }
+              <div>
+                <div class="frt-name">@item.TestimonialName</div>
+                <div class="frt-stars">
+                  @for (int s = 1; s <= 5; s++)
+                  {
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17.3 5.8 20.9l1.6-6.8L2.2 8.9l6.9-.6z" fill="@(s <= starCount ? "#FFA928" : "#E3E6F0")"/>
+                    </svg>
+                  }
+                </div>
+              </div>
+            </div>
+
+          </div>
+        }
+
+        <button class="frt-arrow right" aria-label="Next review">
+          <svg viewBox="0 0 24 24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+
+        <div class="frt-dots">
+          @for (int i = 0; i < Model.Testimonials.Count; i++)
+          {
+            <span class="frt-dot @(i == 0 ? "active" : "")"></span>
+          }
+        </div>
+
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById('@wId');
+          var cards = root.querySelectorAll('.frt-card-item');
+          var dots  = root.querySelectorAll('.frt-dot');
+          var current = 0;
+
+          function show(idx) {
+            cards.forEach(function (c, i) { c.style.display = i === idx ? 'flex' : 'none'; });
+            dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+            current = idx;
+          }
+
+          root.querySelector('.frt-arrow.left').addEventListener('click', function () {
+            show((current - 1 + cards.length) % cards.length);
+          });
+          root.querySelector('.frt-arrow.right').addEventListener('click', function () {
+            show((current + 1) % cards.length);
+          });
+        })();
+      </script>
+    }
+
+  </div>
+</section>
