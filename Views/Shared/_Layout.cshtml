@@ -1,65 +1,137 @@
-@using Kentico.Web.Mvc
-@using Kentico.PageBuilder.Web.Mvc
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8" />
-    <meta data-hid="mobile-web-app-capable" name="mobile-web-app-capable" content="yes">
-    <meta data-hid="author" name="author" content="Final Project">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:400,500,600,700|Source+Sans+Pro:400,600">
+
+    <!-- Themefisher Icon Font -->
+    <link rel="stylesheet" href="/plugins/themefisher-font/style.css">
+
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Bingo Theme CSS -->
+    <link rel="stylesheet" href="/css/style.css">
 
     <page-builder-styles />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <title>Final Project</title>
 </head>
 
-<body>
-    <!-- Header -->
-    <header class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Final Project</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about-us">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/articles">Articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact-us">Contact</a>
-                    </li>
-                </ul>
-            </div>
+<body id="body">
+
+    <!-- Navigation -->
+    <header class="navigation fixed-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light px-0">
+                <a class="navbar-brand logo" href="/">
+                    <img loading="lazy" class="logo-default" src="/theme/images/logo.png" alt="logo" style="height:40px;" onerror="this.style.display='none'">
+                    <img loading="lazy" class="logo-white" src="/theme/images/logo-white.png" alt="logo" style="height:40px;" onerror="this.style.display='none'">
+                    <span class="logo-text fw-bold fs-5">Final Project</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"
+                        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="navbar-nav ms-auto text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about-us">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/articles">Articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact-us">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
     </header>
+    <!-- /Navigation -->
 
     <!-- Main Content -->
-    <main class="container-fluid p-0">
+    <main>
         @RenderBody()
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container text-center">
-            <p>&copy; @DateTime.Now.Year Final Project. All rights reserved.</p>
+    <footer id="footer" class="bg-one">
+        <div class="top-footer">
+            <div class="container">
+                <div class="row justify-content-around">
+                    <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                        <h3>About</h3>
+                        <p>We are dedicated to providing the best services and solutions. Our team of experts is here to help you achieve your goals.</p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                        <ul>
+                            <li><h3>Our Services</h3></li>
+                            <li><a href="/services">All Services</a></li>
+                            <li><a href="/articles">Articles</a></li>
+                            <li><a href="/about-us">About Us</a></li>
+                            <li><a href="/contact-us">Contact Us</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                        <ul>
+                            <li><h3>Quick Links</h3></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about-us">About</a></li>
+                            <li><a href="/services">Services</a></li>
+                            <li><a href="/articles">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <ul>
+                            <li><h3>Connect With Us</h3></li>
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">LinkedIn</a></li>
+                            <li><a href="#">Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <h5>&copy; @DateTime.Now.Year Final Project. All rights reserved.</h5>
         </div>
     </footer>
+    <!-- /Footer -->
 
     <page-builder-scripts />
+
+    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Sticky Header on Scroll -->
+    <script>
+        window.addEventListener('scroll', function () {
+            var nav = document.querySelector('.navigation');
+            if (nav) {
+                nav.classList.toggle('sticky-header', window.scrollY > 50);
+            }
+        });
+    </script>
+
 </body>
 </html>

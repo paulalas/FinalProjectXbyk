@@ -1,0 +1,415 @@
+@using FinalProject
+@using FinalProject.Widgets
+
+@model FinalProject.Widgets.FigmaHeroBannerWidgetViewModel
+
+<style>
+  :root{
+    --dark-blue-1:#142257;
+    --dark-blue-2:#1F3584;
+    --sky-blue:#15B2F5;
+    --shadow:#131F4B;
+    --grey-3:#9EA3B5;
+    --fhb-white:#FFFFFF;
+  }
+
+  .fhb-hero{
+    position:relative;
+    background:var(--dark-blue-1);
+    border-radius:0 0 32px 32px;
+    overflow:hidden;
+    aspect-ratio:1920 / 977;
+    width:100%;
+    container-type:inline-size;
+  }
+
+  .fhb-photo{
+    position:absolute;
+    top:8.2%;
+    height:85.6%;
+    width:21.5%;
+    border-radius:24px;
+    overflow:hidden;
+    background-size:cover;
+    background-position:center;
+  }
+  .fhb-photo-left{ left:.83%; background-image:linear-gradient(135deg,#3a63b8,#26407c); }
+  .fhb-photo-right{ right:.83%; background-image:linear-gradient(135deg,#5a7fd0,#33508f); }
+
+  .fhb-photo::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(35deg, var(--shadow) 4%, rgba(19,31,75,0) 44%);
+  }
+  .fhb-photo-right::before{ transform:scaleX(-1); }
+
+  .fhb-placeholder{
+    position:absolute; inset:0; z-index:1;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:8px;
+    color:rgba(255,255,255,.7);
+    font-size:.9rem; text-align:center; padding:16px;
+  }
+  .fhb-placeholder svg{ width:38px; height:38px; opacity:.55; }
+
+  .fhb-decoration{
+    position:absolute;
+    bottom:0;
+    height:4.6%;
+    width:25.1%;
+    background:var(--fhb-white);
+  }
+  .fhb-decoration.left{  left:0;  clip-path:polygon(0 0, 75% 0, 100% 100%, 0 100%); }
+  .fhb-decoration.right{ right:0; clip-path:polygon(25% 0, 100% 0, 100% 100%, 0 100%); }
+
+  .fhb-content{
+    position:absolute;
+    left:50%;
+    top:calc(50% - 6%);
+    transform:translate(-50%,-50%);
+    width:35%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4cqw;
+    z-index:3;
+  }
+
+  .fhb-text-group{
+    display:flex; flex-direction:column; align-items:center;
+    gap:3.5cqw;
+    width:100%;
+  }
+
+  .fhb-tagline{
+    display:flex; align-items:center; gap:.73cqw;
+    font-weight:700;
+    font-size:1.04cqw;
+    line-height:1.4;
+    color:var(--grey-3);
+    white-space:nowrap;
+  }
+  .fhb-tagline .word{ margin:0 .35cqw; }
+  .fhb-tagline .sep{
+    width:.27cqw; height:.27cqw; min-width:4px; min-height:4px;
+    border-radius:50%;
+    background:var(--grey-3);
+  }
+
+  .fhb-title{
+    font-weight:800;
+    font-size:3.33cqw;
+    line-height:1.19;
+    text-align:center;
+    color:var(--fhb-white);
+  }
+
+  .fhb-features{
+    display:flex;
+    gap:2.13cqw;
+  }
+  .fhb-features .item{
+    display:flex; align-items:center; gap:.42cqw;
+    color:var(--sky-blue);
+    font-weight:400;
+    font-size:1.04cqw;
+    line-height:1.6;
+    white-space:nowrap;
+  }
+  .fhb-features svg{ width:1.25cqw; height:1.25cqw; min-width:18px; min-height:18px; }
+
+  .fhb-cta{
+    display:inline-flex; align-items:center;
+    background:var(--sky-blue);
+    border:none; border-radius:60px;
+    padding:.42cqw;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+    box-shadow:0 14px 34px -10px rgba(21,178,245,.7);
+  }
+  .fhb-cta:hover{
+    transform:translateY(-2px);
+    box-shadow:0 18px 40px -10px rgba(21,178,245,.8);
+  }
+  .fhb-cta .btn-text{
+    padding:.42cqw .83cqw;
+    color:var(--fhb-white);
+    font-weight:700;
+    font-size:1.25cqw;
+    line-height:1.33;
+    white-space:nowrap;
+  }
+  .fhb-cta .icon{
+    width:2.5cqw; height:2.5cqw; min-width:38px; min-height:38px;
+    border-radius:50%;
+    background:var(--fhb-white);
+    display:grid; place-items:center; flex-shrink:0;
+  }
+  .fhb-cta .icon svg{ width:1.25cqw; height:1.25cqw; min-width:18px; min-height:18px; fill:var(--sky-blue); }
+
+  .fhb-highlights{
+    position:absolute;
+    left:50%;
+    bottom:8.7%;
+    transform:translateX(-50%);
+    display:flex; align-items:center;
+    z-index:3;
+  }
+  .fhb-highlight{
+    display:flex; align-items:center; gap:.83cqw;
+    padding:0 1.66cqw;
+    position:relative;
+  }
+  .fhb-highlight + .fhb-highlight::before{
+    content:"";
+    position:absolute; left:0; top:50%;
+    transform:translateY(-50%);
+    width:1px; height:2.4cqw;
+    background:rgba(255,255,255,.18);
+  }
+  .fhb-highlight .h-icon{
+    width:2.5cqw; height:2.5cqw; min-width:40px; min-height:40px;
+    border-radius:999px;
+    background:var(--dark-blue-2);
+    display:grid; place-items:center; flex-shrink:0;
+  }
+  .fhb-highlight .h-icon svg{ width:1.25cqw; height:1.25cqw; min-width:20px; min-height:20px; }
+  .fhb-highlight .h-label{
+    font-weight:600;
+    font-size:.94cqw;
+    line-height:1.33;
+    color:var(--fhb-white);
+  }
+
+  .fhb-mobile-nav{ display:none; }
+
+  @@media (max-width:760px){
+    .fhb-hero{ aspect-ratio:auto; padding:0 0 70px; }
+    .fhb-photo{ display:none; }
+
+    .fhb-mobile-nav{
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+      padding:22px 26px 10px;
+    }
+    .fhb-m-brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700; font-size:1.7rem; color:var(--fhb-white);
+      text-decoration:none;
+    }
+    .fhb-m-brand svg{ width:30px; height:30px; }
+    .fhb-m-burger{
+      background:none; border:none; cursor:pointer; padding:4px;
+      line-height:0;
+    }
+    .fhb-m-burger svg{ width:30px; height:30px; }
+    .fhb-m-menu{
+      display:none; flex-basis:100%; flex-direction:column; gap:4px;
+      padding:10px 0 4px;
+    }
+    .fhb-m-menu.open{ display:flex; }
+    .fhb-m-menu a{
+      color:var(--fhb-white); text-decoration:none;
+      font-weight:600; font-size:1.05rem; padding:8px 2px;
+      opacity:.9;
+    }
+
+    .fhb-content{
+      position:static; transform:none; width:100%; max-width:none;
+      margin:0; padding:18px 26px 0;
+      align-items:stretch; gap:34px;
+    }
+    .fhb-text-group{ align-items:flex-start; gap:22px; }
+    .fhb-tagline{
+      font-size:1.05rem; gap:10px;
+      justify-content:flex-start;
+    }
+    .fhb-tagline .word{ margin:0; }
+    .fhb-tagline .sep{ width:5px; height:5px; }
+    .fhb-title{
+      text-align:left;
+      font-size:clamp(2rem, 9.2vw, 3.2rem);
+      line-height:1.22;
+    }
+    .fhb-features{
+      flex-direction:row; flex-wrap:wrap;
+      justify-content:flex-start; align-items:center;
+      gap:10px 26px;
+    }
+    .fhb-features .item{ font-size:1.05rem; gap:8px; }
+    .fhb-features svg{ width:20px; height:20px; }
+
+    .fhb-cta{ align-self:center; padding:8px; }
+    .fhb-cta .btn-text{ font-size:1.45rem; padding:8px 16px; }
+    .fhb-cta .icon{ width:46px; height:46px; }
+    .fhb-cta .icon svg{ width:22px; height:22px; }
+
+    .fhb-highlights{
+      position:static; transform:none;
+      display:grid; grid-template-columns:1fr 1fr;
+      width:100%; margin-top:48px; padding:0 18px;
+    }
+    .fhb-highlight{
+      flex-direction:column; justify-content:flex-start; align-items:center;
+      gap:14px; padding:30px 12px; text-align:center;
+    }
+    .fhb-highlight + .fhb-highlight::before{ display:none; }
+    .fhb-highlight:nth-child(1){ border-right:1px solid rgba(255,255,255,.16); border-bottom:1px solid rgba(255,255,255,.16); }
+    .fhb-highlight:nth-child(2){ border-bottom:1px solid rgba(255,255,255,.16); }
+    .fhb-highlight:nth-child(3){ border-right:1px solid rgba(255,255,255,.16); }
+    .fhb-highlight .h-icon{ width:46px; height:46px; }
+    .fhb-highlight .h-icon svg{ width:22px; height:22px; }
+    .fhb-highlight .h-label{ font-size:1.1rem; line-height:1.3; }
+
+    .fhb-decoration{ display:block; height:42px; width:40%; }
+  }
+</style>
+
+<section class="fhb-hero">
+
+  <!-- Mobile-only top bar (desktop nav is in the layout) -->
+  <header class="fhb-mobile-nav">
+    <a href="/" class="fhb-m-brand">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L3 9v12a1 1 0 0 0 1 1h6v-7h4v7h6a1 1 0 0 0 1-1V9l-9-7z" fill="#15B2F5"/>
+        <circle cx="12" cy="9" r="2.4" fill="#fff"/>
+      </svg>
+      Final Project
+    </a>
+    <button class="fhb-m-burger" aria-label="Open menu"
+            onclick="this.parentElement.querySelector('.fhb-m-menu').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="7" x2="21" y2="7"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="17" x2="21" y2="17"/>
+      </svg>
+    </button>
+    <nav class="fhb-m-menu">
+      <a href="/about-us">About Us</a>
+      <a href="/services">Services</a>
+      <a href="/articles">Articles</a>
+      <a href="/contact-us">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Left photo -->
+  <div class="fhb-photo fhb-photo-left"
+       @if (!string.IsNullOrEmpty(Model.LeftPhotoUrl)) { <text>style="background-image:url('@Model.LeftPhotoUrl')"</text> }>
+    @if (string.IsNullOrEmpty(Model.LeftPhotoUrl))
+    {
+      <div class="fhb-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        Left photo
+      </div>
+    }
+  </div>
+
+  <!-- Right photo -->
+  <div class="fhb-photo fhb-photo-right"
+       @if (!string.IsNullOrEmpty(Model.RightPhotoUrl)) { <text>style="background-image:url('@Model.RightPhotoUrl')"</text> }>
+    @if (string.IsNullOrEmpty(Model.RightPhotoUrl))
+    {
+      <div class="fhb-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        Right photo
+      </div>
+    }
+  </div>
+
+  <!-- Centered content -->
+  <div class="fhb-content">
+    <div class="fhb-text-group">
+
+      <div class="fhb-tagline">
+        <span class="word">@Model.TaglineWord1</span><span class="sep"></span>
+        <span class="word">@Model.TaglineWord2</span><span class="sep"></span>
+        <span class="word">@Model.TaglineWord3</span>
+      </div>
+
+      <h1 class="fhb-title">@Html.Raw(System.Net.WebUtility.HtmlEncode(Model.Title ?? "").Replace("\r\n", "<br>").Replace("\n", "<br>"))</h1>
+
+      <div class="fhb-features">
+        <span class="item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Free Quotes
+        </span>
+        <span class="item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          100% Commitment-Free
+        </span>
+      </div>
+
+    </div>
+
+    <a class="fhb-cta" href="@Model.ButtonLink">
+      <span class="btn-text">@Model.ButtonText</span>
+      <span class="icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .7-.2 1l-2.3 2.2z"/>
+        </svg>
+      </span>
+    </a>
+  </div>
+
+  <!-- Highlights -->
+  <div class="fhb-highlights">
+    <div class="fhb-highlight">
+      <span class="h-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#15B2F5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 19.3 7.2 21.9l.9-5.4L4.2 7.7l5.4-.8L12 2z"/>
+        </svg>
+      </span>
+      <span class="h-label">@Model.Highlight1Label</span>
+    </div>
+
+    <div class="fhb-highlight">
+      <span class="h-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#15B2F5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <polyline points="12 7 12 12 15.5 14"/>
+        </svg>
+      </span>
+      <span class="h-label">@Model.Highlight2Label</span>
+    </div>
+
+    <div class="fhb-highlight">
+      <span class="h-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#15B2F5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/>
+          <circle cx="12" cy="10" r="2.5"/>
+        </svg>
+      </span>
+      <span class="h-label">@Model.Highlight3Label</span>
+    </div>
+
+    <div class="fhb-highlight">
+      <span class="h-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#15B2F5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4.5" width="18" height="16" rx="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="8" y1="2.5" x2="8" y2="6.5"/>
+          <line x1="16" y1="2.5" x2="16" y2="6.5"/>
+          <polyline points="9 14 11 16 15 12"/>
+        </svg>
+      </span>
+      <span class="h-label">@Model.Highlight4Label</span>
+    </div>
+  </div>
+
+  <div class="fhb-decoration left"></div>
+  <div class="fhb-decoration right"></div>
+
+</section>

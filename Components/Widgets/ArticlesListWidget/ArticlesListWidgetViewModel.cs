@@ -12,5 +12,6 @@ namespace FinalProject.Widgets
         public List<ArticlesDetail> Articles { get; set; } = new List<ArticlesDetail>();
         public List<string> Categories { get; set; } = new List<string>();
         public Dictionary<Guid, string> TagTitles { get; set; } = new Dictionary<Guid, string>();
+        public int PageSize { get; set; } = 5;
     }
 }

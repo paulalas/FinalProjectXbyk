@@ -1,0 +1,184 @@
+@using FinalProject
+@using FigmaProject
+@using FinalProject.Widgets
+
+@model FinalProject.Widgets.FigmaAboutUsWidgetViewModel
+
+@{
+    var wId = $"fau_{Guid.NewGuid().ToString("N").Substring(0, 8)}";
+    var half = (Model.ServiceItems.Count + 1) / 2;
+    var col1 = Model.ServiceItems.Take(half).ToList();
+    var col2 = Model.ServiceItems.Skip(half).ToList();
+}
+
+<style>
+  .fau-services{
+    background:#FFFFFF;
+    color:#171921;
+  }
+  .fau-inner{
+    max-width:1520px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    gap:80px;
+    padding:96px 48px;
+  }
+
+  .fau-content{
+    flex:1 1 420px;
+    max-width:470px;
+    display:flex;
+    flex-direction:column;
+    gap:44px;
+  }
+  .fau-head{ display:flex; flex-direction:column; gap:18px; }
+  .fau-title{
+    font-weight:700;
+    font-size:clamp(1.75rem, 2.1vw, 2.6rem);
+    line-height:1.22;
+    color:#171921;
+  }
+  .fau-desc{
+    font-weight:400;
+    font-size:1rem;
+    line-height:1.55;
+    color:#545971;
+  }
+
+  .fau-lists{ display:flex; gap:40px; }
+  .fau-col{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    padding:0;
+    margin:0;
+  }
+  .fau-col li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+    font-size:1.0625rem;
+    line-height:1.4;
+    color:#1F3584;
+  }
+  .fau-col li svg{ width:15px; height:15px; flex-shrink:0; }
+
+  .fau-note{
+    display:inline-block;
+    background:#15B2F5;
+    border-radius:24px;
+    padding:14px 28px;
+    color:#FFFFFF;
+    font-weight:400;
+    font-size:1rem;
+    line-height:1.55;
+    max-width:430px;
+  }
+  .fau-note a{ color:#FFFFFF; font-weight:600; text-decoration:underline; }
+
+  .fau-image{ flex:1.6 1 660px; }
+  .fau-roof-img{ width:100%; height:auto; display:block; }
+  .fau-roof-ph-note{
+    fill:rgba(255,255,255,.85);
+    font-size:24px; font-weight:600;
+    text-anchor:middle;
+  }
+
+  @@media (max-width:760px){
+    .fau-inner{
+      flex-direction:column;
+      align-items:stretch;
+      gap:32px;
+      padding:48px 26px 56px;
+    }
+    .fau-image{ order:-1; flex:none; }
+    .fau-content{ flex:none; max-width:none; width:100%; gap:30px; }
+    .fau-head{ gap:16px; }
+    .fau-title{ font-size:1.85rem; line-height:1.25; }
+    .fau-desc{ font-size:1.06rem; }
+    .fau-lists{ flex-direction:column; gap:18px; }
+    .fau-col{ gap:18px; }
+    .fau-col li{ font-size:1.06rem; }
+    .fau-note{ display:block; max-width:none; font-size:1.06rem; }
+  }
+</style>
+
+<section class="fau-services">
+  <div class="fau-inner">
+
+    <div class="fau-content">
+      <div class="fau-head">
+        <h2 class="fau-title">@Model.Title</h2>
+        <p class="fau-desc">@Model.ContentText</p>
+      </div>
+
+      @if (col1.Any() || col2.Any())
+      {
+        <div class="fau-lists">
+          <ul class="fau-col">
+            @foreach (var item in col1)
+            {
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1F3584" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                @item.Text
+              </li>
+            }
+          </ul>
+          @if (col2.Any())
+          {
+            <ul class="fau-col">
+              @foreach (var item in col2)
+              {
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#1F3584" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  @item.Text
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      }
+
+      <div class="fau-note">
+        @Model.NoteText
+        @if (!string.IsNullOrEmpty(Model.NoteLinkHref))
+        {
+          <a href="@Model.NoteLinkHref">@Model.NoteLinkText</a>
+        }
+      </div>
+    </div>
+
+    <div class="fau-image">
+      <svg class="fau-roof-img" viewBox="0 0 712 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="@(wId)_clip">
+            <path d="M 384.0 18.5 L 684.0 216.5 Q 712.0 235.0 712.0 268.5 L 712.0 666.5 Q 712.0 700.0 678.5 700.0 L 33.5 700.0 Q 0.0 700.0 0.0 666.5 L 0.0 268.5 Q 0.0 235.0 28.0 216.5 L 328.0 18.5 Q 356.0 0.0 384.0 18.5 Z"/>
+          </clipPath>
+          <linearGradient id="@(wId)_grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#9fcde8"/>
+            <stop offset="1" stop-color="#3a597e"/>
+          </linearGradient>
+        </defs>
+        <g clip-path="url(#@(wId)_clip)">
+          @if (!string.IsNullOrEmpty(Model.HouseImageUrl))
+          {
+            <image href="@Model.HouseImageUrl" width="712" height="700" preserveAspectRatio="xMidYMid slice"/>
+          }
+          else
+          {
+            <rect width="712" height="700" fill="url(#@(wId)_grad)"/>
+            @Html.Raw("<text class=\"fau-roof-ph-note\" x=\"356\" y=\"380\">Add house image</text>")
+          }
+        </g>
+      </svg>
+    </div>
+
+  </div>
+</section>

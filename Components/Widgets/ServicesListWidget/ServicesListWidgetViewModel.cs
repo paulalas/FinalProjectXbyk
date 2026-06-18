@@ -10,5 +10,6 @@ namespace FinalProject.Widgets
         public string SectionSubtitle { get; set; }
         public List<ServicesDetail> Services { get; set; } = new List<ServicesDetail>();
         public List<string> Categories { get; set; } = new List<string>();
+        public int PageSize { get; set; } = 5;
     }
 }

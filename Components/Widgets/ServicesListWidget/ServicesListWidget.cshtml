@@ -246,7 +246,7 @@
 
 <script>
     (function () {
-        var PAGE_SIZE = 5;
+        var PAGE_SIZE = @Model.PageSize;
         var widgetEl = document.getElementById('@widgetId');
         var cards = Array.from(widgetEl.querySelectorAll('.service-card'));
         var paginationEl = document.getElementById('@(widgetId)-pagination');

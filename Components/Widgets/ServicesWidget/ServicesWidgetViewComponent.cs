@@ -31,11 +31,19 @@ namespace FinalProject.Widgets
 
         public async Task<ViewViewComponentResult> InvokeAsync(ServicesWidgetProperties properties)
         {
+            var count = properties.Count > 0 ? properties.Count : 3;
+
+            var orderBy = properties.SortOrder switch
+            {
+                "oldest" => OrderByColumn.Asc(nameof(ServicesDetail.ServicesDateCreated)),
+                "az"     => OrderByColumn.Asc(nameof(ServicesDetail.ServicesTitle)),
+                "za"     => OrderByColumn.Desc(nameof(ServicesDetail.ServicesTitle)),
+                _        => OrderByColumn.Desc(nameof(ServicesDetail.ServicesDateCreated))
+            };
+
             var services = await _contentRetriever.RetrievePages<ServicesDetail>(
                 new RetrievePagesParameters { LinkedItemsMaxLevel = 1 },
-                query => query
-                    .TopN(3)
-                    .OrderBy(OrderByColumn.Desc(nameof(ServicesDetail.ServicesDateCreated))),
+                query => query.TopN(count).OrderBy(orderBy),
                 RetrievalCacheSettings.CacheDisabled
             );
 

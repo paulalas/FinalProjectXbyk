@@ -36,9 +36,17 @@ namespace FinalProject.Widgets
 
         public async Task<ViewViewComponentResult> InvokeAsync(ArticlesListWidgetProperties properties)
         {
+            var orderBy = properties.SortOrder switch
+            {
+                "oldest" => OrderByColumn.Asc(nameof(ArticlesDetail.ArticleDateCreated)),
+                "az"     => OrderByColumn.Asc(nameof(ArticlesDetail.ArticleTitle)),
+                "za"     => OrderByColumn.Desc(nameof(ArticlesDetail.ArticleTitle)),
+                _        => OrderByColumn.Desc(nameof(ArticlesDetail.ArticleDateCreated))
+            };
+
             var allArticles = await _contentRetriever.RetrievePages<ArticlesDetail>(
                 new RetrievePagesParameters { LinkedItemsMaxLevel = 1 },
-                q => q.OrderBy(OrderByColumn.Desc(nameof(ArticlesDetail.ArticleDateCreated))),
+                q => q.OrderBy(orderBy),
                 RetrievalCacheSettings.CacheDisabled
             );
 
@@ -75,7 +83,8 @@ namespace FinalProject.Widgets
                 SectionSubtitle = properties.SectionSubtitle,
                 Articles = articleList,
                 Categories = categories,
-                TagTitles = tagLookup
+                TagTitles = tagLookup,
+                PageSize = properties.PageSize > 0 ? properties.PageSize : 5
             };
 
             return View("~/Components/Widgets/ArticlesListWidget/ArticlesListWidget.cshtml", viewModel);

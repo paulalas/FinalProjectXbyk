@@ -267,3 +267,5 @@ C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\ref\FinalProject.dll
 C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\FinalProject.RazorAssemblyInfo.cache
 C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\FinalProject.RazorAssemblyInfo.cs
 C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\FinalProject.sourcelink.json
+C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\compressed\y4fvgn1xzt-{0}-ecziqzhrv9-ecziqzhrv9.gz
+C:\Users\work\Work\xbyk\FinalProject\obj\Debug\net10.0\compressed\qrflhwqrgy-{0}-3d6zeb89td-3d6zeb89td.gz

@@ -31,9 +31,17 @@ namespace FinalProject.Widgets
 
         public async Task<ViewViewComponentResult> InvokeAsync(ServicesListWidgetProperties properties)
         {
+            var orderBy = properties.SortOrder switch
+            {
+                "oldest" => OrderByColumn.Asc(nameof(ServicesDetail.ServicesDateCreated)),
+                "az"     => OrderByColumn.Asc(nameof(ServicesDetail.ServicesTitle)),
+                "za"     => OrderByColumn.Desc(nameof(ServicesDetail.ServicesTitle)),
+                _        => OrderByColumn.Desc(nameof(ServicesDetail.ServicesDateCreated))
+            };
+
             var allServices = await _contentRetriever.RetrievePages<ServicesDetail>(
                 new RetrievePagesParameters { LinkedItemsMaxLevel = 1 },
-                q => q.OrderBy(OrderByColumn.Desc(nameof(ServicesDetail.ServicesDateCreated))),
+                q => q.OrderBy(orderBy),
                 RetrievalCacheSettings.CacheDisabled
             );
 
@@ -52,7 +60,8 @@ namespace FinalProject.Widgets
                 SectionTitleHighlight = properties.SectionTitleHighlight,
                 SectionSubtitle = properties.SectionSubtitle,
                 Services = serviceList,
-                Categories = categories
+                Categories = categories,
+                PageSize = properties.PageSize > 0 ? properties.PageSize : 5
             };
 
             return View("~/Components/Widgets/ServicesListWidget/ServicesListWidget.cshtml", viewModel);

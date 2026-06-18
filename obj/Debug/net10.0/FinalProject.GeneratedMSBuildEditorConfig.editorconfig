@@ -34,6 +34,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXENvbnRlbnRCbG9ja1dpZGdldFxDb250ZW50QmxvY2tXaWRnZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/FigmaAboutUsWidget/FigmaAboutUsWidget.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXEZpZ21hQWJvdXRVc1dpZGdldFxGaWdtYUFib3V0VXNXaWRnZXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/FigmaHeroBannerWidget/FigmaHeroBannerWidget.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXEZpZ21hSGVyb0Jhbm5lcldpZGdldFxGaWdtYUhlcm9CYW5uZXJXaWRnZXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/work/Work/xbyk/FinalProject/Components/Widgets/LatestArticlesWidget/LatestArticlesWidget.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXExhdGVzdEFydGljbGVzV2lkZ2V0XExhdGVzdEFydGljbGVzV2lkZ2V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
