@@ -1,0 +1,138 @@
+@using FigmaProject
+@using FinalProject.Widgets
+
+@model FinalProject.Widgets.FigmaContentBlockWidgetViewModel
+
+<style>
+  .fcb-section{
+    background:#FFFFFF;
+    color:#171921;
+    padding:clamp(64px,8vw,110px) 24px;
+  }
+  .fcb-inner{
+    max-width:1440px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    gap:clamp(48px,7vw,96px);
+  }
+
+  .fcb-image{
+    position:relative;
+    flex:0 1 760px;
+  }
+  .fcb-photo{
+    width:100%;
+    aspect-ratio:640 / 616;
+    border-radius:32px 200px 32px 32px;
+    overflow:hidden;
+    background-size:cover;
+    background-position:center;
+    background-color:#aebfd2;
+  }
+  .fcb-photo-ph{
+    width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    color:rgba(255,255,255,.8); font-size:.95rem; font-weight:600;
+  }
+
+  .fcb-content{
+    flex:0 1 400px;
+    display:flex;
+    flex-direction:column;
+    gap:36px;
+  }
+  .fcb-title{
+    font-weight:700;
+    font-size:clamp(1.6rem,2.2vw,2.25rem);
+    line-height:1.23;
+    color:#171921;
+  }
+  .fcb-steps{
+    display:flex;
+    flex-direction:column;
+    gap:32px;
+  }
+  .fcb-step{
+    display:flex;
+    align-items:flex-start;
+    gap:24px;
+  }
+  .fcb-step-head{
+    flex:0 0 180px;
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+  .fcb-step-num{
+    font-weight:700;
+    font-size:2.25rem;
+    line-height:1;
+    color:#9EA3B5;
+  }
+  .fcb-step-name{
+    font-weight:700;
+    font-size:1.1rem;
+    line-height:1.33;
+    color:#171921;
+  }
+  .fcb-step-desc{
+    flex:1 1 auto;
+    font-weight:400;
+    font-size:0.95rem;
+    line-height:1.56;
+    color:#545971;
+  }
+
+  @@media (max-width:760px){
+    .fcb-section{ padding:40px 24px 56px; }
+    .fcb-inner{ flex-direction:column; align-items:stretch; gap:40px; }
+    .fcb-image{ flex:none; }
+    .fcb-photo{ border-radius:24px 120px 24px 24px; }
+    .fcb-content{ gap:32px; }
+    .fcb-title{ font-size:1.85rem; }
+    .fcb-step{ flex-direction:column; gap:14px; }
+    .fcb-step-head{ flex:none; }
+    .fcb-step-num{ font-size:2.75rem; }
+    .fcb-step-name{ font-size:1.3rem; }
+    .fcb-step-desc{ font-size:1.06rem; }
+  }
+</style>
+
+<section class="fcb-section">
+  <div class="fcb-inner">
+
+    <div class="fcb-image">
+      @if (!string.IsNullOrEmpty(Model.ImageUrl))
+      {
+        <div class="fcb-photo" style="background-image:url('@Model.ImageUrl')"></div>
+      }
+      else
+      {
+        <div class="fcb-photo">
+          <div class="fcb-photo-ph">Worker photo</div>
+        </div>
+      }
+    </div>
+
+    <div class="fcb-content">
+      <h2 class="fcb-title">@Model.Title</h2>
+
+      <div class="fcb-steps">
+        @{ int stepNum = 0; }
+        @foreach (var step in Model.Steps)
+        {
+          stepNum++;
+          <div class="fcb-step">
+            <div class="fcb-step-head">
+              <span class="fcb-step-num">@(stepNum).</span>
+              <span class="fcb-step-name">@step.Title</span>
+            </div>
+            <p class="fcb-step-desc">@step.ContentText</p>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+</section>
