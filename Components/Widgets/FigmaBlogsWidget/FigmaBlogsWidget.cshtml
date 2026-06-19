@@ -1,0 +1,206 @@
+@using FinalProject.Widgets
+
+@model FinalProject.Widgets.FigmaBlogsWidgetViewModel
+
+@{
+    var gradients = new[]
+    {
+        "linear-gradient(135deg,#cdd9ea,#8aa1c2)",
+        "linear-gradient(135deg,#9fb8c9,#5d7388)",
+        "linear-gradient(135deg,#e6b9a0,#9c6c83)"
+    };
+}
+
+<style>
+  .fbg-section{
+    background:#FFFFFF;
+    color:#171921;
+    padding:clamp(56px,7vw,96px) 24px;
+  }
+  .fbg-inner{
+    max-width:1440px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:56px;
+  }
+  .fbg-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+    max-width:694px;
+    text-align:center;
+  }
+  .fbg-title{
+    font-weight:700;
+    font-size:clamp(2.1rem,3.8vw,3.25rem);
+    line-height:1.23;
+    color:#171921;
+  }
+  .fbg-sub{
+    font-weight:400;
+    font-size:clamp(1.1rem,1.7vw,1.5rem);
+    line-height:1.5;
+    color:#545971;
+  }
+
+  .fbg-cards{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:48px;
+  }
+  .fbg-card{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+  }
+  .fbg-thumb{
+    width:100%;
+    aspect-ratio:448 / 300;
+    border-radius:24px;
+    overflow:hidden;
+    position:relative;
+  }
+  .fbg-thumb img{
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    display:block;
+  }
+  .fbg-thumb-ph{
+    width:100%; height:100%;
+  }
+  .fbg-text{ display:flex; flex-direction:column; gap:16px; }
+  .fbg-date{
+    font-weight:400;
+    font-size:1.125rem;
+    line-height:1.56;
+    color:#545971;
+  }
+  .fbg-card h3{
+    font-weight:700;
+    font-size:2rem;
+    line-height:1.25;
+    color:#171921;
+  }
+  .fbg-excerpt{
+    font-weight:400;
+    font-size:1.125rem;
+    line-height:1.56;
+    color:#545971;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+
+  .fbg-tags{ display:flex; flex-wrap:wrap; gap:12px; }
+  .fbg-tag{
+    background:#F3F5F9;
+    border-radius:999px;
+    padding:8px 16px;
+    font-weight:600;
+    font-size:.875rem;
+    line-height:1.43;
+    color:#545971;
+  }
+  .fbg-tag.third{ display:block; }
+  .fbg-tag.more{ display:none; padding:8px 14px; }
+
+  @@media (max-width:760px){
+    .fbg-tag.third{ display:none; }
+    .fbg-tag.more{ display:flex; }
+  }
+
+  .fbg-more{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    background:none; border:none; cursor:pointer;
+    font-family:inherit;
+    font-weight:700;
+    font-size:1.5rem;
+    color:#15B2F5;
+    text-decoration:none;
+  }
+  .fbg-more svg{ width:24px; height:24px; }
+  .fbg-more:hover{ color:#0d9fd8; text-decoration:none; }
+
+  @@media (max-width:1000px){
+    .fbg-cards{ grid-template-columns:repeat(2,1fr); }
+  }
+
+  @@media (max-width:760px){
+    .fbg-section{ padding:48px 24px; }
+    .fbg-inner{ gap:36px; }
+    .fbg-cards{ grid-template-columns:1fr; gap:40px; }
+    .fbg-title{ font-size:1.7rem; }
+    .fbg-sub{ font-size:1.05rem; }
+    .fbg-card h3{ font-size:1.45rem; }
+    .fbg-date, .fbg-excerpt{ font-size:1.02rem; }
+  }
+</style>
+
+<section class="fbg-section">
+  <div class="fbg-inner">
+
+    <div class="fbg-header">
+      <h2 class="fbg-title">@Model.SectionTitle</h2>
+      <p class="fbg-sub">@Model.Description</p>
+    </div>
+
+    @if (Model.Cards.Any())
+    {
+      <div class="fbg-cards">
+        @for (int i = 0; i < Model.Cards.Count; i++)
+        {
+          var card = Model.Cards[i];
+          <article class="fbg-card">
+            <div class="fbg-thumb">
+              @if (!string.IsNullOrEmpty(card.ImageUrl))
+              {
+                <img src="@card.ImageUrl" alt="@card.Title">
+              }
+              else
+              {
+                <div class="fbg-thumb-ph" style="background:@gradients[i % gradients.Length]"></div>
+              }
+            </div>
+            <div class="fbg-text">
+              <span class="fbg-date">@card.Date</span>
+              <h3>@card.Title</h3>
+              <p class="fbg-excerpt">@card.Excerpt</p>
+              @if (card.TagNames.Any())
+              {
+                <div class="fbg-tags">
+                  @for (int t = 0; t < card.TagNames.Count; t++)
+                  {
+                    var tagClass = t == 2 ? "fbg-tag third" : "fbg-tag";
+                    <span class="@tagClass">@card.TagNames[t]</span>
+                  }
+                  @if (card.TagNames.Count > 2)
+                  {
+                    <span class="fbg-tag more">...</span>
+                  }
+                </div>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.ViewMoreLink))
+    {
+      <a href="@Model.ViewMoreLink" class="fbg-more">
+        View More
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </a>
+    }
+
+  </div>
+</section>

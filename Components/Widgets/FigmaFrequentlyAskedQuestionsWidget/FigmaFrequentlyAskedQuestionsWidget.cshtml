@@ -1,0 +1,165 @@
+@using FinalProject.Widgets
+
+@model FinalProject.Widgets.FigmaFrequentlyAskedQuestionsWidgetViewModel
+
+@{
+    var wId = "faq-" + Guid.NewGuid().ToString("N");
+}
+
+<style>
+  .ffaq-section{
+    background:#FFFFFF;
+    color:#171921;
+    padding:clamp(56px,8vw,110px) 24px;
+  }
+  .ffaq-inner{
+    max-width:1440px;
+    margin:0 auto;
+    display:flex;
+    align-items:flex-start;
+    gap:clamp(48px,7vw,96px);
+  }
+
+  /* left panel */
+  .ffaq-left{ flex:0 0 470px; }
+  .ffaq-title{
+    font-weight:700;
+    font-size:clamp(2.2rem,3.6vw,3.25rem);
+    line-height:1.23;
+    color:#171921;
+    margin-bottom:24px;
+  }
+  .ffaq-help{
+    display:flex;
+    align-items:baseline;
+    gap:11px;
+    flex-wrap:wrap;
+  }
+  .ffaq-help span{ font-weight:400; font-size:1.25rem; color:#171921; }
+  .ffaq-help a{
+    font-weight:700; font-size:1.5rem;
+    color:#15B2F5;
+    text-decoration:underline;
+  }
+  .ffaq-help a:hover{ color:#0d9fd8; }
+
+  /* accordion list */
+  .ffaq-list{
+    flex:1 1 auto;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .ffaq-item{
+    border-radius:12px;
+    transition:background .2s ease;
+  }
+  .ffaq-item.open{ background:#F3F5F9; }
+
+  .ffaq-q{
+    width:100%;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    padding:24px 32px;
+    background:none; border:none; cursor:pointer;
+    font-family:inherit;
+    text-align:left;
+  }
+  .ffaq-q span{
+    font-weight:700;
+    font-size:1.5rem;
+    line-height:1.33;
+    color:#545971;
+  }
+  .ffaq-q svg{
+    width:32px; height:32px; flex-shrink:0;
+    stroke:#1F3584;
+    transition:transform .25s ease;
+  }
+  .ffaq-item.open .ffaq-q{ padding-bottom:16px; }
+  .ffaq-item.open .ffaq-q svg{ transform:rotate(180deg); }
+
+  .ffaq-a{
+    display:grid;
+    grid-template-rows:0fr;
+    transition:grid-template-rows .3s ease;
+  }
+  .ffaq-a > div{ overflow:hidden; }
+  .ffaq-item.open .ffaq-a{ grid-template-rows:1fr; }
+  .ffaq-a p{
+    padding:0 32px 24px;
+    font-weight:400;
+    font-size:1rem;
+    line-height:1.5;
+    color:#737373;
+  }
+
+  @@media (max-width:760px){
+    .ffaq-section{ padding:40px 24px 48px; }
+    .ffaq-inner{ flex-direction:column; align-items:stretch; gap:32px; }
+    .ffaq-left{ flex:none; text-align:center; }
+    .ffaq-title{ font-size:1.85rem; margin-bottom:14px; }
+    .ffaq-help{ justify-content:center; }
+    .ffaq-help span{ font-size:1.05rem; }
+    .ffaq-help a{ font-size:1.15rem; }
+    .ffaq-q{ padding:20px 22px; gap:10px; }
+    .ffaq-q span{ font-size:1.15rem; }
+    .ffaq-q svg{ width:26px; height:26px; }
+    .ffaq-a p{ padding:0 22px 20px; font-size:1rem; }
+  }
+</style>
+
+<section class="ffaq-section" id="@wId">
+  <div class="ffaq-inner">
+
+    <div class="ffaq-left">
+      <h2 class="ffaq-title">@Model.Title</h2>
+      <div class="ffaq-help">
+        @if (!string.IsNullOrEmpty(Model.HelpText))
+        {
+          <span>@Model.HelpText</span>
+        }
+        @if (!string.IsNullOrEmpty(Model.HelpLinkText))
+        {
+          <a href="@Model.HelpLinkUrl">@Model.HelpLinkText</a>
+        }
+      </div>
+    </div>
+
+    <div class="ffaq-list">
+      @for (int i = 0; i < Model.Items.Count; i++)
+      {
+        var item = Model.Items[i];
+        var openClass = i == 0 ? "ffaq-item open" : "ffaq-item";
+        <div class="@openClass">
+          <button class="ffaq-q" type="button">
+            <span>@item.Question</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="ffaq-a">
+            <div><p>@item.Answer</p></div>
+          </div>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('@wId');
+  root.querySelectorAll('.ffaq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.ffaq-item');
+      var isOpen = item.classList.contains('open');
+      root.querySelectorAll('.ffaq-item').forEach(function (i) { i.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+})();
+</script>

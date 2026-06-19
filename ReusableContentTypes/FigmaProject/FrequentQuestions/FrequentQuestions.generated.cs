@@ -12,57 +12,37 @@
 using System;
 using System.Collections.Generic;
 using CMS.ContentEngine;
-using CMS.Websites;
-using FinalProject;
 
 namespace FigmaProject
 {
 	/// <summary>
-	/// Represents a page of type <see cref="Blogs"/>.
+	/// Represents a content item of type <see cref="FrequentQuestions"/>.
 	/// </summary>
 	[RegisterContentTypeMapping(CONTENT_TYPE_NAME)]
-	public partial class Blogs : IWebPageFieldsSource
+	public partial class FrequentQuestions : IContentItemFieldsSource
 	{
 		/// <summary>
 		/// Code name of the content type.
 		/// </summary>
-		public const string CONTENT_TYPE_NAME = "FigmaProject.Blogs";
+		public const string CONTENT_TYPE_NAME = "FigmaProject.FrequentQuestions";
 
 
 		/// <summary>
-		/// Represents system properties for a web page item.
+		/// Represents system properties for a content item.
 		/// </summary>
 		[SystemField]
-		public WebPageFields SystemFields { get; set; }
+		public ContentItemFields SystemFields { get; set; }
 
 
 		/// <summary>
-		/// BlogPicture.
+		/// Question.
 		/// </summary>
-		public IEnumerable<Assets> BlogPicture { get; set; }
+		public string Question { get; set; }
 
 
 		/// <summary>
-		/// BlogDateCreated.
+		/// Answer.
 		/// </summary>
-		public DateTime BlogDateCreated { get; set; }
-
-
-		/// <summary>
-		/// BlogTitle.
-		/// </summary>
-		public string BlogTitle { get; set; }
-
-
-		/// <summary>
-		/// BlogContent.
-		/// </summary>
-		public string BlogContent { get; set; }
-
-
-		/// <summary>
-		/// BlogCategory.
-		/// </summary>
-		public IEnumerable<TagReference> BlogCategory { get; set; }
+		public string Answer { get; set; }
 	}
 }
