@@ -106,6 +106,114 @@
         @@media (max-width: 760px) {
             .nav { display: none; }
         }
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+        .footer{
+            background:#15B2F5;
+            color:#FFFFFF;
+        }
+        .footer-wrap{
+            max-width:1490px;
+            margin:0 auto;
+            padding:52px 40px 56px;
+        }
+
+        /* newsletter */
+        .newsletter{
+            background:#4AC9FF;
+            border-radius:24px;
+            padding:24px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:24px;
+            margin-bottom:72px;
+        }
+        .nl-text{ display:flex; flex-direction:column; gap:10px; }
+        .nl-text h3{ font-weight:700; font-size:1.5rem; line-height:1.33; }
+        .nl-text p{ font-weight:400; font-size:1.125rem; line-height:1.56; }
+        .nl-form{
+            flex-shrink:0;
+            display:flex; align-items:center;
+            background:#FFFFFF;
+            border-radius:60px;
+            padding:12px;
+            width:516px; max-width:100%;
+        }
+        .nl-form input{
+            flex:1 1 auto;
+            border:none; outline:none;
+            background:transparent;
+            padding:0 16px;
+            font-family:inherit; font-size:1.125rem;
+            color:#171921;
+        }
+        .nl-form input::placeholder{ color:#9EA3B5; }
+        .nl-form button{
+            flex-shrink:0;
+            background:#15B2F5;
+            color:#FFFFFF;
+            border:none; border-radius:60px;
+            padding:14px 26px;
+            font-family:inherit; font-weight:700; font-size:1.125rem;
+            cursor:pointer;
+            transition:filter .15s ease;
+        }
+        .nl-form button:hover{ filter:brightness(1.05); }
+
+        /* main */
+        .footer-main{
+            display:flex;
+            justify-content:space-between;
+            gap:48px;
+        }
+        .footer-brand{ max-width:460px; display:flex; flex-direction:column; gap:28px; }
+        .footer-logo{ display:flex; align-items:center; gap:12px; }
+        .footer-logo svg{ width:34px; height:34px; }
+        .footer-logo span{ font-weight:700; font-size:1.75rem; }
+        .footer-desc{ font-weight:400; font-size:1.125rem; line-height:1.56; }
+        .footer-socials{ display:flex; gap:24px; }
+        .footer-socials a{ display:grid; place-items:center; }
+        .footer-socials svg{ width:24px; height:24px; }
+
+        .footer-menus{ display:flex; gap:64px; }
+        .menu-col{ display:flex; flex-direction:column; gap:22px; }
+        .menu-col h4{ font-weight:700; font-size:1.5rem; line-height:1.33; }
+        .menu-col a{
+            color:#FFFFFF; text-decoration:none;
+            font-weight:400; font-size:1.25rem; line-height:1.6;
+            opacity:.95;
+        }
+        .menu-col a:hover{ text-decoration:underline; }
+
+        /* bottom bar */
+        .footer-bottom{
+            border-top:1px solid rgba(255,255,255,.3);
+            padding:32px 24px;
+            text-align:center;
+            font-weight:400; font-size:1.125rem;
+            color:#FFFFFF;
+        }
+
+        @@media (max-width:760px){
+            .footer-wrap{ padding:32px 24px 40px; }
+            .newsletter{ flex-direction:column; align-items:stretch; gap:18px; margin-bottom:48px; }
+            .nl-text h3{ font-size:1.3rem; }
+            .nl-text p{ font-size:1.02rem; }
+            .nl-form{ width:100%; }
+            .nl-form input{ font-size:1rem; padding:0 10px; min-width:0; }
+            .nl-form button{ padding:12px 20px; font-size:1rem; }
+            .footer-main{ flex-direction:column; gap:36px; }
+            .footer-brand{ max-width:none; gap:22px; }
+            .footer-logo span{ font-size:1.6rem; }
+            .footer-desc{ font-size:1.05rem; }
+            .footer-menus{ gap:48px; }
+            .menu-col h4{ font-size:1.3rem; }
+            .menu-col a{ font-size:1.1rem; }
+            .footer-bottom{ font-size:1rem; padding:24px; }
+        }
     </style>
 </head>
 
@@ -140,6 +248,76 @@
     <main>
         @RenderBody()
     </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="footer-wrap">
+
+            <!-- Newsletter -->
+            <div class="newsletter">
+                <div class="nl-text">
+                    <h3>Stay Connected with Our Newsletter</h3>
+                    <p>Subscribe to our newsletter to get more news, promo, or news services</p>
+                </div>
+                <div class="nl-form">
+                    <input type="email" placeholder="Enter email address" aria-label="Email address">
+                    <button type="button">Subscribe</button>
+                </div>
+            </div>
+
+            <!-- Main -->
+            <div class="footer-main">
+
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L3 9v12a1 1 0 0 0 1 1h6v-7h4v7h6a1 1 0 0 0 1-1V9l-9-7z" fill="#fff"/>
+                            <circle cx="12" cy="9" r="2.4" fill="#15B2F5"/>
+                        </svg>
+                        <span>HomePro</span>
+                    </div>
+                    <p class="footer-desc">Home Pro is your premier destination for top-notch smart home service and repair.</p>
+                    <div class="footer-socials">
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM10 15.5v-7l6 3.5z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="#fff" stroke="none"/></svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v6h3v-6H16l.5-3h-3V9.5c0-.3.2-.5.5-.5z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="#fff"><path d="M22 5.8c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.3 1.7-2.2-.8.5-1.7.8-2.6 1a4 4 0 0 0-6.8 3.6A11.3 11.3 0 0 1 3.9 4.6a4 4 0 0 0 1.2 5.3c-.6 0-1.2-.2-1.8-.5a4 4 0 0 0 3.2 3.9c-.5.1-1.1.2-1.7.1a4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 17.5a11.3 11.3 0 0 0 6.1 1.8c7.3 0 11.4-6.1 11.4-11.4v-.5c.8-.6 1.5-1.3 2-2z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Mail">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-menus">
+                    <div class="menu-col">
+                        <h4>Company</h4>
+                        <a href="#">About us</a>
+                        <a href="#">Services</a>
+                        <a href="#">Our Blog</a>
+                        <a href="#">Contact</a>
+                    </div>
+                    <div class="menu-col">
+                        <h4>Legal</h4>
+                        <a href="#">Terms</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Cookies</a>
+                        <a href="#">License</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer-bottom">&copy;2023 HomePro . All rights reserved</div>
+    </footer>
 
     <page-builder-scripts />
 </body>
