@@ -1,18 +1,17 @@
+using System.Collections.Generic;
+using FigmaProject;
+
 namespace FinalProject.Widgets
 {
     public class FigmaHeroBannerWidgetViewModel
     {
-        public string TaglineWord1 { get; set; }
-        public string TaglineWord2 { get; set; }
-        public string TaglineWord3 { get; set; }
+        public List<IconWithTitleAndText> TaglineItems { get; set; } = new List<IconWithTitleAndText>();
         public string Title { get; set; }
+        public List<IconWithTitleAndText> FeatureItems { get; set; } = new List<IconWithTitleAndText>();
         public string ButtonText { get; set; }
         public string ButtonLink { get; set; }
         public string LeftPhotoUrl { get; set; }
         public string RightPhotoUrl { get; set; }
-        public string Highlight1Label { get; set; }
-        public string Highlight2Label { get; set; }
-        public string Highlight3Label { get; set; }
-        public string Highlight4Label { get; set; }
+        public List<IconWithTitleAndText> HighlightItems { get; set; } = new List<IconWithTitleAndText>();
     }
 }

@@ -2,6 +2,7 @@ using Kentico.PageBuilder.Web.Mvc;
 using Kentico.Content.Web.Mvc;
 using FinalProject.Widgets;
 using FinalProject;
+using FigmaProject;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -34,21 +35,28 @@ namespace FinalProject.Widgets
         {
             var viewModel = new FigmaHeroBannerWidgetViewModel
             {
-                TaglineWord1    = properties.TaglineWord1,
-                TaglineWord2    = properties.TaglineWord2,
-                TaglineWord3    = properties.TaglineWord3,
-                Title           = properties.Title,
-                ButtonText      = properties.ButtonText,
-                ButtonLink      = properties.ButtonLink,
-                LeftPhotoUrl    = await GetPhotoUrl(properties.LeftPhoto),
-                RightPhotoUrl   = await GetPhotoUrl(properties.RightPhoto),
-                Highlight1Label = properties.Highlight1Label,
-                Highlight2Label = properties.Highlight2Label,
-                Highlight3Label = properties.Highlight3Label,
-                Highlight4Label = properties.Highlight4Label
+                TaglineItems   = await FetchIconItems(properties.TaglineItems),
+                Title          = properties.Title,
+                FeatureItems   = await FetchIconItems(properties.FeatureItems),
+                ButtonText     = properties.ButtonText,
+                ButtonLink     = properties.ButtonLink,
+                LeftPhotoUrl   = await GetPhotoUrl(properties.LeftPhoto),
+                RightPhotoUrl  = await GetPhotoUrl(properties.RightPhoto),
+                HighlightItems = await FetchIconItems(properties.HighlightItems)
             };
 
             return View("~/Components/Widgets/FigmaHeroBannerWidget/FigmaHeroBannerWidget.cshtml", viewModel);
+        }
+
+        private async Task<List<IconWithTitleAndText>> FetchIconItems(IEnumerable<ContentItemReference> refs)
+        {
+            if (refs?.Any() != true) return new List<IconWithTitleAndText>();
+
+            var guids = refs.Select(r => r.Identifier).ToList();
+            var results = await _contentRetriever.RetrieveContentByGuids<IconWithTitleAndText>(
+                guids,
+                new RetrieveContentParameters { LinkedItemsMaxLevel = 0 });
+            return results.ToList();
         }
 
         private async Task<string> GetPhotoUrl(IEnumerable<ContentItemReference> refs)

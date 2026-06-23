@@ -1,5 +1,5 @@
-@using FinalProject
 @using FinalProject.Widgets
+@using FigmaProject
 
 @model FinalProject.Widgets.FigmaHeroBannerWidgetViewModel
 
@@ -56,11 +56,11 @@
     position:absolute;
     bottom:0;
     height:4.6%;
-    width:25.1%;
+    width:28%;
     background:var(--fhb-white);
   }
-  .fhb-decoration.left{  left:0;  clip-path:polygon(0 0, 75% 0, 100% 100%, 0 100%); }
-  .fhb-decoration.right{ right:0; clip-path:polygon(25% 0, 100% 0, 100% 100%, 0 100%); }
+  .fhb-decoration.left{  left:0;  clip-path:polygon(0 0, 80% 0, 100% 100%, 0 100%); }
+  .fhb-decoration.right{ right:0; clip-path:polygon(20% 0, 100% 0, 100% 100%, 0 100%); }
 
   .fhb-content{
     position:absolute;
@@ -182,6 +182,9 @@
     color:var(--fhb-white);
   }
 
+  .fhb-fi-icon{ font-size:1.25cqw; min-width:18px; min-height:18px; line-height:1; color:currentColor; }
+  .fhb-hi-icon{ font-size:1.25cqw; min-width:20px; min-height:20px; line-height:1; color:#15B2F5; }
+
   .fhb-mobile-nav{ display:none; }
 
   @@media (max-width:760px){
@@ -239,6 +242,8 @@
     }
     .fhb-features .item{ font-size:1.05rem; gap:8px; }
     .fhb-features svg{ width:20px; height:20px; }
+    .fhb-fi-icon{ font-size:20px; }
+    .fhb-hi-icon{ font-size:22px; }
 
     .fhb-cta{ align-self:center; padding:8px; }
     .fhb-cta .btn-text{ font-size:1.45rem; padding:8px 16px; }
@@ -329,28 +334,37 @@
   <div class="fhb-content">
     <div class="fhb-text-group">
 
-      <div class="fhb-tagline">
-        <span class="word">@Model.TaglineWord1</span><span class="sep"></span>
-        <span class="word">@Model.TaglineWord2</span><span class="sep"></span>
-        <span class="word">@Model.TaglineWord3</span>
-      </div>
+      @if (Model.TaglineItems.Any())
+      {
+        <div class="fhb-tagline">
+          @for (int ti = 0; ti < Model.TaglineItems.Count; ti++)
+          {
+            <span class="word">@Model.TaglineItems[ti].Title</span>
+            @if (ti < Model.TaglineItems.Count - 1)
+            {
+              <span class="sep"></span>
+            }
+          }
+        </div>
+      }
 
       <h1 class="fhb-title">@Html.Raw(System.Net.WebUtility.HtmlEncode(Model.Title ?? "").Replace("\r\n", "<br>").Replace("\n", "<br>"))</h1>
 
-      <div class="fhb-features">
-        <span class="item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          Free Quotes
-        </span>
-        <span class="item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          100% Commitment-Free
-        </span>
-      </div>
+      @if (Model.FeatureItems.Any())
+      {
+        <div class="fhb-features">
+          @foreach (var fi in Model.FeatureItems)
+          {
+            <span class="item">
+              @if (!string.IsNullOrEmpty(fi.Icon))
+              {
+                <i class="@fi.Icon fhb-fi-icon"></i>
+              }
+              @fi.Title
+            </span>
+          }
+        </div>
+      }
 
     </div>
 
@@ -365,49 +379,23 @@
   </div>
 
   <!-- Highlights -->
-  <div class="fhb-highlights">
-    <div class="fhb-highlight">
-      <span class="h-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#15B2F5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 19.3 7.2 21.9l.9-5.4L4.2 7.7l5.4-.8L12 2z"/>
-        </svg>
-      </span>
-      <span class="h-label">@Model.Highlight1Label</span>
+  @if (Model.HighlightItems.Any())
+  {
+    <div class="fhb-highlights">
+      @foreach (var hi in Model.HighlightItems)
+      {
+        <div class="fhb-highlight">
+          <span class="h-icon">
+            @if (!string.IsNullOrEmpty(hi.Icon))
+            {
+              <i class="@hi.Icon fhb-hi-icon"></i>
+            }
+          </span>
+          <span class="h-label">@hi.Title</span>
+        </div>
+      }
     </div>
-
-    <div class="fhb-highlight">
-      <span class="h-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#15B2F5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="9"/>
-          <polyline points="12 7 12 12 15.5 14"/>
-        </svg>
-      </span>
-      <span class="h-label">@Model.Highlight2Label</span>
-    </div>
-
-    <div class="fhb-highlight">
-      <span class="h-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#15B2F5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/>
-          <circle cx="12" cy="10" r="2.5"/>
-        </svg>
-      </span>
-      <span class="h-label">@Model.Highlight3Label</span>
-    </div>
-
-    <div class="fhb-highlight">
-      <span class="h-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#15B2F5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4.5" width="18" height="16" rx="2"/>
-          <line x1="3" y1="9" x2="21" y2="9"/>
-          <line x1="8" y1="2.5" x2="8" y2="6.5"/>
-          <line x1="16" y1="2.5" x2="16" y2="6.5"/>
-          <polyline points="9 14 11 16 15 12"/>
-        </svg>
-      </span>
-      <span class="h-label">@Model.Highlight4Label</span>
-    </div>
-  </div>
+  }
 
   <div class="fhb-decoration left"></div>
   <div class="fhb-decoration right"></div>
