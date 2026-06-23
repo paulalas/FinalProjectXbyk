@@ -184,38 +184,9 @@
   .fhb-fi-icon{ font-size:1.25cqw; min-width:18px; min-height:18px; line-height:1; color:currentColor; }
   .fhb-hi-icon{ font-size:1.25cqw; min-width:20px; min-height:20px; line-height:1; color:#15B2F5; }
 
-  .fhb-mobile-nav{ display:none; }
-
   @@media (max-width:760px){
     .fhb-hero{ aspect-ratio:auto; padding:0 0 70px; }
     .fhb-photo{ display:none; }
-
-    .fhb-mobile-nav{
-      display:flex; align-items:center; justify-content:space-between;
-      flex-wrap:wrap;
-      padding:22px 26px 10px;
-    }
-    .fhb-m-brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:700; font-size:1.7rem; color:var(--fhb-white);
-      text-decoration:none;
-    }
-    .fhb-m-brand svg{ width:30px; height:30px; }
-    .fhb-m-burger{
-      background:none; border:none; cursor:pointer; padding:4px;
-      line-height:0;
-    }
-    .fhb-m-burger svg{ width:30px; height:30px; }
-    .fhb-m-menu{
-      display:none; flex-basis:100%; flex-direction:column; gap:4px;
-      padding:10px 0 4px;
-    }
-    .fhb-m-menu.open{ display:flex; }
-    .fhb-m-menu a{
-      color:var(--fhb-white); text-decoration:none;
-      font-weight:600; font-size:1.05rem; padding:8px 2px;
-      opacity:.9;
-    }
 
     .fhb-content{
       position:static; transform:none; width:100%; max-width:none;
@@ -271,31 +242,6 @@
 </style>
 
 <section class="fhb-hero">
-
-  <!-- Mobile-only top bar (desktop nav is in the layout) -->
-  <header class="fhb-mobile-nav">
-    <a href="/" class="fhb-m-brand">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L3 9v12a1 1 0 0 0 1 1h6v-7h4v7h6a1 1 0 0 0 1-1V9l-9-7z" fill="#15B2F5"/>
-        <circle cx="12" cy="9" r="2.4" fill="#fff"/>
-      </svg>
-      Final Project
-    </a>
-    <button class="fhb-m-burger" aria-label="Open menu"
-            onclick="this.parentElement.querySelector('.fhb-m-menu').classList.toggle('open')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
-        <line x1="3" y1="7" x2="21" y2="7"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <line x1="3" y1="17" x2="21" y2="17"/>
-      </svg>
-    </button>
-    <nav class="fhb-m-menu">
-      <a href="/about-us">About Us</a>
-      <a href="/services">Services</a>
-      <a href="/articles">Articles</a>
-      <a href="/contact-us">Contact</a>
-    </nav>
-  </header>
 
   <!-- Left photo -->
   <div class="fhb-photo fhb-photo-left"

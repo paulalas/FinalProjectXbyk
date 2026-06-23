@@ -107,6 +107,40 @@
             .nav { display: none; }
         }
 
+        /* ---------- Mobile navigation ---------- */
+        .mob-nav{
+            display:none;
+            background:#142257;
+        }
+        @@media (max-width: 760px) {
+            .mob-nav{
+                display:flex; align-items:center; justify-content:space-between;
+                flex-wrap:wrap;
+                padding:22px 26px 10px;
+            }
+            .mob-brand{
+                display:flex; align-items:center; gap:10px;
+                font-weight:700; font-size:1.7rem; color:#FFFFFF;
+                text-decoration:none;
+            }
+            .mob-brand svg{ width:30px; height:30px; }
+            .mob-burger{
+                background:none; border:none; cursor:pointer; padding:4px;
+                line-height:0;
+            }
+            .mob-burger svg{ width:30px; height:30px; }
+            .mob-menu{
+                display:none; flex-basis:100%; flex-direction:column; gap:4px;
+                padding:10px 0 4px;
+            }
+            .mob-menu.open{ display:flex; }
+            .mob-menu a{
+                color:#FFFFFF; text-decoration:none;
+                font-weight:600; font-size:1.05rem; padding:8px 2px;
+                opacity:.9;
+            }
+        }
+
         /* =========================================================
            FOOTER
            ========================================================= */
@@ -243,6 +277,31 @@
             24 Hour Services
         </div>
     </nav>
+
+    <!-- Mobile navigation (hidden on desktop) -->
+    <header class="mob-nav">
+        <a href="/" class="mob-brand">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L3 9v12a1 1 0 0 0 1 1h6v-7h4v7h6a1 1 0 0 0 1-1V9l-9-7z" fill="#15B2F5"/>
+                <circle cx="12" cy="9" r="2.4" fill="#fff"/>
+            </svg>
+            HomePro
+        </a>
+        <button class="mob-burger" aria-label="Open menu"
+                onclick="this.parentElement.querySelector('.mob-menu').classList.toggle('open')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="7" x2="21" y2="7"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="17" x2="21" y2="17"/>
+            </svg>
+        </button>
+        <nav class="mob-menu">
+            <a href="/about-us">About Us</a>
+            <a href="/services">Services</a>
+            <a href="/articles">Articles</a>
+            <a href="/contact-us">Contact</a>
+        </nav>
+    </header>
 
     <!-- Page Content -->
     <main>
